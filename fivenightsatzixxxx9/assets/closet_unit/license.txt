@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wardrobe (low poly)
+* source:	https://sketchfab.com/3d-models/wardrobe-low-poly-7fcac13e776a4763b736ec169f6b3e30
+* author:	FISHERTOM (https://sketchfab.com/FISHERTOM)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wardrobe (low poly)" (https://sketchfab.com/3d-models/wardrobe-low-poly-7fcac13e776a4763b736ec169f6b3e30) by FISHERTOM (https://sketchfab.com/FISHERTOM) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

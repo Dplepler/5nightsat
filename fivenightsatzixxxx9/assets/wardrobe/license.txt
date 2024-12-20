@@ -1,0 +1,11 @@
+Model Information:
+* title:	WARDROBE-TABLE
+* source:	https://sketchfab.com/3d-models/wardrobe-table-083274f971f246f194fa3163ef94d9ce
+* author:	TomiokaSan (https://sketchfab.com/TomiokaSan)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "WARDROBE-TABLE" (https://sketchfab.com/3d-models/wardrobe-table-083274f971f246f194fa3163ef94d9ce) by TomiokaSan (https://sketchfab.com/TomiokaSan) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

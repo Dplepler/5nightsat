@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=35 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
 [ext_resource type="Texture2D" uid="uid://cpiot66ip32iw" path="res://assets/textures/wall.jpg" id="2_nwd35"]
@@ -24,9 +24,13 @@
 [ext_resource type="PackedScene" uid="uid://dvf7g6dqpcjs" path="res://assets/cat/scene.gltf" id="16_xjuxd"]
 [ext_resource type="PackedScene" uid="uid://c2d3jhqm3nl0j" path="res://assets/curtains/scene.gltf" id="17_spm1y"]
 [ext_resource type="PackedScene" uid="uid://b86ly53bdk40f" path="res://player.tscn" id="24_rryci"]
+[ext_resource type="PackedScene" uid="uid://610esn6o7atn" path="res://assets/wardrobe/wardrobe.glb" id="25_vp37e"]
+[ext_resource type="PackedScene" uid="uid://c3v5gg85gxiff" path="res://assets/wardrobe/wardrobe2.glb" id="26_8rwl7"]
+[ext_resource type="PackedScene" uid="uid://dakvipql4mih5" path="res://assets/chiburashka/scene.gltf" id="27_5yck3"]
+[ext_resource type="PackedScene" uid="uid://b7t5yexlffcw3" path="res://assets/camel/camel1.glb" id="28_tojde"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
-size = Vector3(11, 0.05, 10)
+size = Vector3(13, 0.05, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p3xko"]
 albedo_texture = ExtResource("1_wmq35")
@@ -58,16 +62,17 @@ transform = Transform3D(-5.36422e-06, 0, -50, 0, 50, 0, 50, 0, -5.36422e-06, -9.
 [node name="floor" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00398993, 0, 0)
 shape = SubResource("BoxShape3D_6ywfr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor/CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.472847, 0, 0)
 mesh = SubResource("BoxMesh_2v2vc")
 
-[node name="Sketchfab_Scene" parent="floor/CollisionShape3D" instance=ExtResource("4_pyt31")]
+[node name="amp" parent="floor/CollisionShape3D" instance=ExtResource("4_pyt31")]
 transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, 5.46265, 0.0250001, 0.27664)
 
-[node name="Sketchfab_Scene2" parent="floor/CollisionShape3D" instance=ExtResource("5_h5dvr")]
+[node name="ibanez2" parent="floor/CollisionShape3D" instance=ExtResource("5_h5dvr")]
 transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 5.54226, 0.0286701, 1.84686)
 
 [node name="wall1" type="StaticBody3D" parent="."]
@@ -167,3 +172,18 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.914
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.0954, 7.2244, -2.50903)
+
+[node name="wardrobe" parent="." instance=ExtResource("25_vp37e")]
+transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, 3.66789, 0.0249996, -4.24087)
+
+[node name="wardrobe2" parent="wardrobe" instance=ExtResource("25_vp37e")]
+transform = Transform3D(0.815077, 0, -0.579352, 0, 1, 0, 0.579352, 0, 0.815077, 0.754821, 0, -2.37743)
+
+[node name="wardrobe3" parent="wardrobe" instance=ExtResource("26_8rwl7")]
+transform = Transform3D(-1.07284e-07, 0, -1, 0, 1, 0, 1, 0, -1.07284e-07, 3.07616, -0.000451803, -3.46879)
+
+[node name="chiburashka" parent="wardrobe" instance=ExtResource("27_5yck3")]
+transform = Transform3D(0.385796, 0, 0.31806, 0, 0.5, 0, -0.31806, 0, 0.385796, 0.778667, 6.61454, 0.756073)
+
+[node name="camel1" parent="wardrobe" instance=ExtResource("28_tojde")]
+transform = Transform3D(0.00841511, 0, -0.0054024, 0, 0.01, 0, 0.0054024, 0, 0.00841511, 1.54036, 0.222233, -1.81839)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	чебурашка / Cheburashka
+* source:	https://sketchfab.com/3d-models/cheburashka-ed2e1f0a5361472f91ad300a839c34d3
+* author:	Лапшин Сергей (https://sketchfab.com/serg111)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "чебурашка / Cheburashka" (https://sketchfab.com/3d-models/cheburashka-ed2e1f0a5361472f91ad300a839c34d3) by Лапшин Сергей (https://sketchfab.com/serg111) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
