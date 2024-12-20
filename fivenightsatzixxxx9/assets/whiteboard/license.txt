@@ -1,0 +1,11 @@
+Model Information:
+* title:	Stuff in my Room: Whiteboard
+* source:	https://sketchfab.com/3d-models/stuff-in-my-room-whiteboard-47d903f18c214a9699a7aa9b0b82d52a
+* author:	MossOnTheRocks (https://sketchfab.com/MossOnTheRocks)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Stuff in my Room: Whiteboard" (https://sketchfab.com/3d-models/stuff-in-my-room-whiteboard-47d903f18c214a9699a7aa9b0b82d52a) by MossOnTheRocks (https://sketchfab.com/MossOnTheRocks) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

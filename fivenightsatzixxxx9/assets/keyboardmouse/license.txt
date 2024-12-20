@@ -1,0 +1,11 @@
+Model Information:
+* title:	RGB Keyboard and Mouse
+* source:	https://sketchfab.com/3d-models/rgb-keyboard-and-mouse-df00ce3e66dc4b75a5f9b49c2e6b1406
+* author:	Jamesley (https://sketchfab.com/jamesley55)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "RGB Keyboard and Mouse" (https://sketchfab.com/3d-models/rgb-keyboard-and-mouse-df00ce3e66dc4b75a5f9b49c2e6b1406) by Jamesley (https://sketchfab.com/jamesley55) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Awning
+* source:	https://sketchfab.com/3d-models/awning-63cba129018d42c98edb707b5e04a508
+* author:	pamoan10 (https://sketchfab.com/pamoan10)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Awning" (https://sketchfab.com/3d-models/awning-63cba129018d42c98edb707b5e04a508) by pamoan10 (https://sketchfab.com/pamoan10) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Picnic Blanket
+* source:	https://sketchfab.com/3d-models/picnic-blanket-af6221b3317249019e0614a1dab1bf98
+* author:	j8cov (https://sketchfab.com/j8cobcreative)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Picnic Blanket" (https://sketchfab.com/3d-models/picnic-blanket-af6221b3317249019e0614a1dab1bf98) by j8cov (https://sketchfab.com/j8cobcreative) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

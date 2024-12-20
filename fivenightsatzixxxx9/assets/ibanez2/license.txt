@@ -1,0 +1,11 @@
+Model Information:
+* title:	Ibanez Electric Guitar
+* source:	https://sketchfab.com/3d-models/ibanez-electric-guitar-66e8fd4f231f406fa97fca379c0f4687
+* author:	visualdiscette (https://sketchfab.com/visualdiscette)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Ibanez Electric Guitar" (https://sketchfab.com/3d-models/ibanez-electric-guitar-66e8fd4f231f406fa97fca379c0f4687) by visualdiscette (https://sketchfab.com/visualdiscette) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
