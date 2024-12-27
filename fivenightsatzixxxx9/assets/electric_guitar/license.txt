@@ -1,0 +1,8 @@
+Model Information:
+* title:	Electric guitar
+* source:	https://sketchfab.com/3d-models/electric-guitar-4b724a85d877429abefe257d463204db
+* author:	Orfeas41 (https://sketchfab.com/Orfeas41)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

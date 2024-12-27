@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=53 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
 [ext_resource type="Texture2D" uid="uid://cpiot66ip32iw" path="res://assets/textures/wall.jpg" id="2_nwd35"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cmwxqsxjel4jo" path="res://assets/pc/scene.gltf" id="5_lwim0"]
 [ext_resource type="PackedScene" uid="uid://opw5my8lolea" path="res://assets/monitor/scene.gltf" id="6_fvwho"]
 [ext_resource type="PackedScene" uid="uid://d2edyvv1cbj7c" path="res://assets/ibanez/scene.gltf" id="7_srqe3"]
-[ext_resource type="PackedScene" uid="uid://dvx2iexyiinek" path="res://assets/guitarshark/scene.gltf" id="8_lm8ji"]
 [ext_resource type="PackedScene" uid="uid://chyov26ojl801" path="res://assets/guitarsg/scene.gltf" id="9_cmpbi"]
 [ext_resource type="PackedScene" uid="uid://dlx5d8qrtncn5" path="res://assets/printer/scene.gltf" id="9_noiip"]
 [ext_resource type="PackedScene" uid="uid://bx6hfa60osoj8" path="res://assets/guitartelecaster/scene.gltf" id="10_3r8cp"]
@@ -28,12 +27,18 @@
 [ext_resource type="PackedScene" uid="uid://dy2dje5ishx4f" path="res://assets/cupcake/scene.gltf" id="22_lq2o7"]
 [ext_resource type="PackedScene" uid="uid://b86ly53bdk40f" path="res://player.tscn" id="24_rryci"]
 [ext_resource type="PackedScene" uid="uid://610esn6o7atn" path="res://assets/wardrobe/wardrobe.glb" id="25_vp37e"]
-[ext_resource type="PackedScene" uid="uid://c3v5gg85gxiff" path="res://assets/wardrobe/wardrobe2.glb" id="26_8rwl7"]
 [ext_resource type="PackedScene" uid="uid://dakvipql4mih5" path="res://assets/chiburashka/scene.gltf" id="27_5yck3"]
 [ext_resource type="PackedScene" uid="uid://b7t5yexlffcw3" path="res://assets/camel/camel1.glb" id="28_tojde"]
 [ext_resource type="PackedScene" uid="uid://b30xmaqdj0ctt" path="res://assets/jacket/scene.gltf" id="29_527gx"]
 [ext_resource type="PackedScene" uid="uid://623y8k0gdjas" path="res://assets/guitar_stand/untitled.glb" id="30_psgjr"]
 [ext_resource type="PackedScene" uid="uid://nude6wkgqci0" path="res://assets/ceiling/scene.gltf" id="34_1pr6j"]
+[ext_resource type="PackedScene" uid="uid://bs7uqr6lwqn3t" path="res://assets/baby_fully_rigged/baby0.glb" id="34_mn7fv"]
+[ext_resource type="PackedScene" uid="uid://cuve45fcbovlw" path="res://assets/lightbulb/scene.gltf" id="35_vljcd"]
+[ext_resource type="PackedScene" uid="uid://cnrko3o1as0pw" path="res://assets/door/door.glb" id="36_oib43"]
+[ext_resource type="PackedScene" uid="uid://b66fjqjnn4ahc" path="res://assets/wardrobe/wardrobe5.glb" id="36_sjta6"]
+[ext_resource type="AudioStream" uid="uid://cdjy4jy1mgi24" path="res://assets/sounds/intro.mp3" id="37_voqax"]
+[ext_resource type="PackedScene" uid="uid://cf25wuh3rvwxy" path="res://assets/electric_guitar/guitar.glb" id="38_35lig"]
+[ext_resource type="Script" path="res://audio_stream_player.gd" id="38_w06ng"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
 size = Vector3(13.5, 0.05, 10)
@@ -55,7 +60,7 @@ uv1_scale = Vector3(5, 5, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2223x"]
 material = SubResource("StandardMaterial3D_5cr1h")
-size = Vector3(10, 6, 0.05)
+size = Vector3(14, 6, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qavf4"]
 transparency = 3
@@ -71,15 +76,32 @@ size = Vector3(6.19, 3.56, 0.01)
 
 [sub_resource type="Environment" id="Environment_2sjlx"]
 ambient_light_source = 2
-ambient_light_energy = 0.0
+tonemap_exposure = 2.0
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_albedo = Color(0.670099, 0.545013, 0.521735, 1)
+adjustment_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7tfj"]
+albedo_texture = ExtResource("2_nwd35")
+
+[sub_resource type="BoxMesh" id="BoxMesh_lrukb"]
+material = SubResource("StandardMaterial3D_a7tfj")
+size = Vector3(12, 4.245, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fds5o"]
+albedo_texture = ExtResource("2_nwd35")
+
+[sub_resource type="BoxMesh" id="BoxMesh_tq6lp"]
+material = SubResource("StandardMaterial3D_fds5o")
+size = Vector3(4.5, 28, 1)
 
 [node name="main" type="Node3D"]
 
 [node name="drawer" parent="." instance=ExtResource("2_o6fi7")]
-transform = Transform3D(-0.03, 0, -4.52987e-09, 0, 0.03, 0, 4.52987e-09, 0, -0.03, -0.016495, 1, 3.93339)
+transform = Transform3D(-0.16, 0, -1.70625e-08, 0, 0.113, 0, 2.41593e-08, 0, -0.113, 1.19534, 0.0429848, 3.93339)
 
 [node name="printer" parent="drawer" instance=ExtResource("9_noiip")]
-transform = Transform3D(-5.36422e-06, 0, -50, 0, 50, 0, 50, 0, -5.36422e-06, -9.30474, 49.0291, -16.0304)
+transform = Transform3D(-1.00579e-06, 0, -9.375, 0, 13.2743, 0, 13.2743, 0, -1.42413e-06, 4.3423, 21.4857, -4.25586)
 
 [node name="floor" type="StaticBody3D" parent="."]
 
@@ -101,10 +123,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
 shape = SubResource("BoxShape3D_1nckx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall1/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 mesh = SubResource("BoxMesh_2223x")
 
 [node name="curtains" parent="wall1" instance=ExtResource("17_spm1y")]
-transform = Transform3D(0.265141, -0.00160007, 0.299496, 0.256916, 0.206793, -0.226341, -0.153929, 0.342394, 0.138101, -0.152832, 1.94699, -6.16517)
+transform = Transform3D(0.265141, -0.00160007, 0.299496, 0.256916, 0.206793, -0.226341, -0.153929, 0.342394, 0.138101, -0.86642, 1.94699, -6.16517)
 
 [node name="ibanez" parent="wall1" instance=ExtResource("7_srqe3")]
 transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, -3.03104, 4.42937, -4.88644)
@@ -138,6 +161,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
 shape = SubResource("BoxShape3D_1nckx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall2/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -4.76837e-07, 0)
 mesh = SubResource("BoxMesh_2223x")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall2"]
@@ -154,8 +178,18 @@ shape = SubResource("BoxShape3D_1nckx")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall3/CollisionShape3D"]
 mesh = SubResource("BoxMesh_2223x")
 
+[node name="wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7047, 0, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3, -10)
+shape = SubResource("BoxShape3D_1nckx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall4/CollisionShape3D"]
+mesh = SubResource("BoxMesh_2223x")
+
 [node name="chair" parent="." instance=ExtResource("3_hhabd")]
-transform = Transform3D(1.9799, 0, 1.9799, 0, 2.8, 0, -1.9799, 0, 1.9799, -1.60491, 0, 2)
+transform = Transform3D(1.9799, 0, 1.9799, 0, 2.8, 0, -1.9799, 0, 1.9799, -1.92768, 0, 2.24998)
 
 [node name="desk" parent="." instance=ExtResource("4_sirpr")]
 transform = Transform3D(-1.5299e-07, 0, 3.5, 0, 3.5, 0, -3.5, 0, -1.5299e-07, -3.60491, 0, 3)
@@ -217,33 +251,76 @@ transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, 
 [node name="wardrobe2" parent="wardrobe" instance=ExtResource("25_vp37e")]
 transform = Transform3D(0.815077, 0, -0.579352, 0, 1, 0, 0.579352, 0, 0.815077, 0.754821, 0, -2.37743)
 
-[node name="wardrobe3" parent="wardrobe" instance=ExtResource("26_8rwl7")]
-transform = Transform3D(-1.07284e-07, 0, -1, 0, 1, 0, 1, 0, -1.07284e-07, 3.07616, -0.000451803, -3.46879)
-
 [node name="chiburashka" parent="wardrobe" instance=ExtResource("27_5yck3")]
-transform = Transform3D(0.385796, 0, 0.31806, 0, 0.5, 0, -0.31806, 0, 0.385796, 0.778667, 6.4795, 0.756073)
+transform = Transform3D(0.385796, 0, 0.31806, 0, 0.5, 0, -0.31806, 0, 0.385796, 0.646949, 6.48321, 0.754243)
 
 [node name="camel1" parent="wardrobe" instance=ExtResource("28_tojde")]
-transform = Transform3D(0.00680268, 0, -0.00589267, 0, 0.009, 0, 0.00589267, 0, 0.00680268, 1.59269, 0.222233, -1.6994)
-
-[node name="jacket" parent="wardrobe" instance=ExtResource("29_527gx")]
-transform = Transform3D(2.5, 0, -6.39488e-14, 0, 2.5, 0, 6.39488e-14, 0, 2.5, 3.3707, 2.95739, -1.17137)
-
-[node name="shark" parent="wardrobe" instance=ExtResource("8_lm8ji")]
-transform = Transform3D(3.44227e-08, -0.375, 1.17474e-08, 0, -1.63918e-08, -0.26875, 0.2625, 4.91753e-08, -1.54049e-15, 0.0111146, 3.65153, 1.00553)
+transform = Transform3D(0.0074723, 0, -0.00501645, 0, 0.009, 0, 0.00501645, 0, 0.0074723, 1.59269, 0.222233, -1.6994)
 
 [node name="guitar_hanger5" parent="wardrobe" instance=ExtResource("30_psgjr")]
 transform = Transform3D(-5.46392e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.46392e-08, -0.00347185, 3.30786, 0.825426)
 
+[node name="guitar" parent="wardrobe/guitar_hanger5" instance=ExtResource("38_35lig")]
+transform = Transform3D(-1.08623e-07, 0, -2.485, 0, 2.485, 0, 2.485, 0, -1.08623e-07, -0.192597, 0.347866, -0.00311136)
+visible = false
+
+[node name="baby0" parent="wardrobe/guitar_hanger5" instance=ExtResource("34_mn7fv")]
+transform = Transform3D(-9.79137e-08, 0, -2.24, 0, 2.24, 0, 2.24, 0, -9.79137e-08, -0.169875, 0.695491, -0.0450101)
+
 [node name="OmniLight3D" type="OmniLight3D" parent="wardrobe"]
-transform = Transform3D(-5.46392e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.46392e-08, 0.548151, 4.27962, 0.635335)
-light_color = Color(0.473602, 0.0316088, 0.126838, 1)
-light_energy = 16.0
-light_specular = 16.0
+transform = Transform3D(-5.46392e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.46392e-08, 0.861058, 4.46349, 0.659506)
+light_color = Color(0.654418, 0, 0.0534353, 1)
+light_energy = 3.889
+light_size = 0.39
+light_specular = 11.278
+light_bake_mode = 1
 shadow_enabled = true
+
+[node name="wardrobe5" parent="wardrobe" instance=ExtResource("36_sjta6")]
+transform = Transform3D(1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, 3.32559, 0.0218639, -3.62692)
+
+[node name="jacket" parent="wardrobe/wardrobe5" instance=ExtResource("29_527gx")]
+transform = Transform3D(4.86768e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, 4.86768e-07, 2.41255, 3.01412, 0.0398507)
 
 [node name="ceiling" parent="." instance=ExtResource("34_1pr6j")]
 transform = Transform3D(0.44, 0, 0, 0, 0.13, 0, 0, 0, 0.575, 13.5686, 4.26903, 133.051)
 
+[node name="lightbulb" parent="ceiling" instance=ExtResource("35_vljcd")]
+transform = Transform3D(15, 0, -3.11959e-14, 0, 50.762, 0, 4.0779e-14, 0, 11.475, -29.8832, 12.0848, -230.376)
+
+[node name="bulb" type="OmniLight3D" parent="ceiling/lightbulb"]
+transform = Transform3D(0.151515, 0, -6.68257e-15, 0, 0.151537, 0, 6.46132e-15, 0, 0.151558, -0.0258246, -0.0865764, -0.0306211)
+light_color = Color(1, 0.827451, 0.647059, 1)
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 8.408
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2sjlx")
+
+[node name="door" parent="." instance=ExtResource("36_oib43")]
+transform = Transform3D(0.136499, 0, 0.0463567, 0, 0.215, 0, -0.166112, 0, 0.0380927, 5.77173, 0.207536, 4.18275)
+
+[node name="upperWall" type="MeshInstance3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -1.19209e-07, 0, 1, 4.99884, 24.5121, 0.752899)
+mesh = SubResource("BoxMesh_lrukb")
+
+[node name="doorFrame" type="MeshInstance3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -1.19209e-07, 0, 1, 12.9686, 13.8478, 0.698959)
+mesh = SubResource("BoxMesh_tq6lp")
+
+[node name="doorFrame2" type="MeshInstance3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, -1.19209e-07, 0, 1, -2.18306, 13.8478, 0.826599)
+mesh = SubResource("BoxMesh_tq6lp")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5387, 1.1119, 1.5855)
+current = true
+
+[node name="introSound" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54641, 4.69813, -0.526528)
+current = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="introSound"]
+stream = ExtResource("37_voqax")
+script = ExtResource("38_w06ng")

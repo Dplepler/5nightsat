@@ -1,6 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://b86ly53bdk40f"]
+[gd_scene load_steps=12 format=3 uid="uid://b86ly53bdk40f"]
 
 [ext_resource type="Script" path="res://character_body_3d.gd" id="1_3hpty"]
+[ext_resource type="Texture2D" uid="uid://18fdfkemkp0f" path="res://assets/zix/1.jpeg" id="2_kf07a"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="2_n45tg"]
+[ext_resource type="Texture2D" uid="uid://cgbqrj52eeq0e" path="res://assets/zix/2.jpeg" id="3_26s1p"]
+[ext_resource type="Texture2D" uid="uid://dkfbx16pmvupb" path="res://assets/zix/3.jpeg" id="4_ijd65"]
+[ext_resource type="Texture2D" uid="uid://c4qqsjeo1gfll" path="res://assets/zix/4.jpeg" id="5_01stb"]
+[ext_resource type="Texture2D" uid="uid://fvcdeefuixc4" path="res://assets/zix/5.jpeg" id="6_55uo0"]
+[ext_resource type="Texture2D" uid="uid://bl8k4p6u8lddn" path="res://assets/zix/6.jpeg" id="7_620b4"]
+[ext_resource type="Texture2D" uid="uid://b3qvteyoskexw" path="res://assets/zix/7.jpg" id="9_f75sg"]
+[ext_resource type="AudioStream" uid="uid://bbe2ed62tp7fp" path="res://assets/sounds/scary.mp3" id="10_8loxs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_24815"]
 height = 2.5
@@ -18,3 +27,50 @@ shape = SubResource("CapsuleShape3D_24815")
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.696142, -0.511796)
 fov = 85.0
+script = ExtResource("2_n45tg")
+
+[node name="Sprite3D" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.716014, -1.09358)
+visible = false
+pixel_size = 0.0035
+texture = ExtResource("2_kf07a")
+
+[node name="Sprite3D2" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.451669, -0.807595)
+visible = false
+pixel_size = 0.003
+texture = ExtResource("3_26s1p")
+
+[node name="Sprite3D3" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30815, 0.158843, -1.57727)
+visible = false
+pixel_size = 0.0065
+texture = ExtResource("4_ijd65")
+
+[node name="Sprite3D4" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, -0.0139382, 0.0332681, -0.818895)
+visible = false
+pixel_size = 0.05
+texture = ExtResource("5_01stb")
+
+[node name="Sprite3D5" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0924487, -0.528515, -0.68639)
+visible = false
+pixel_size = 0.0035
+texture = ExtResource("6_55uo0")
+
+[node name="Sprite3D6" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.142748, -1)
+visible = false
+pixel_size = 0.005
+texture = ExtResource("7_620b4")
+
+[node name="Sprite3D7" type="Sprite3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.968491)
+visible = false
+pixel_size = 0.002
+texture = ExtResource("9_f75sg")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12484, 0)
+stream = ExtResource("10_8loxs")
