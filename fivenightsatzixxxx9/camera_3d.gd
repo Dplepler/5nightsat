@@ -11,9 +11,8 @@ extends Camera3D
 @onready var flashes = [flash1, flash2, flash3, flash4, flash5, flash6, flash7]
 @onready var scary_sound = $AudioStreamPlayer3D  # Reference the AudioStreamPlayer node
 
-const DELAY = 1
 const FLASH_DELAY = 0.2
-const DEFAULT_CHANCE = 1000
+const DEFAULT_CHANCE = 5000
 const IMAGES_IN_FLASH = 5
 
 var mutex : Mutex = Mutex.new()
@@ -30,9 +29,9 @@ func _on_timer_timeout():
 		chance_denominator = DEFAULT_CHANCE
 		images_in_current_flash = 0
 	
-	var index = randi_range(1, chance_denominator) # 7 / denominator chance for an image to appear
+	var index = randi_range(0, chance_denominator) # number of flashes / denominator chance for an image to appear
 	if index <= flashes.size() - 1 and images_in_current_flash < IMAGES_IN_FLASH and mutex.try_lock():
-		chance_denominator = 50
+		chance_denominator = 40
 		
 		last_sprite = flashes[index]
 		last_sprite.visible = true
@@ -45,15 +44,11 @@ func _on_timer_timeout():
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# turn off flash sprites
-	for i in flashes:
-		i.visible = false
-	
-	scary_sound.stream = load("res://assets/sounds/scary.mp3")
-	
 	timer.wait_time = FLASH_DELAY
 	timer.autostart = true
 	timer.connect("timeout", _on_timer_timeout)
+	
+	await get_tree().create_timer(62).timeout # Wait for intro
 	add_child(timer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
