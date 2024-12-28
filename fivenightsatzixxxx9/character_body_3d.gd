@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @onready var camera = $Camera3D
 
-const SPEED = 0.1
+const SPEED = 0.6
 const ROTATION_LIMIT = 70
 var last_delta = 0.0
 
@@ -19,8 +19,8 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var to_rotate = clamp(-event.relative.x * SPEED, deg_to_rad(-ROTATION_LIMIT), deg_to_rad(ROTATION_LIMIT))
-		camera.rotation.y = lerp_angle(camera.rotation.y, to_rotate, 2 * last_delta)
+		var to_rotate = clamp(-event.relative.x, deg_to_rad(-ROTATION_LIMIT), deg_to_rad(ROTATION_LIMIT))
+		camera.rotation.y = lerp_angle(camera.rotation.y, to_rotate, SPEED * last_delta)
 	if event is InputEventMouseButton and MOUSE_BUTTON_LEFT == event.button_index:
 		var result = get_selection()
 		if result and result.collider and "chib" == result.collider.name:

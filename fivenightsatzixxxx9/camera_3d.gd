@@ -42,6 +42,7 @@ func _on_timer_timeout():
 		
 		mutex.unlock()
 	
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer.wait_time = FLASH_DELAY
@@ -50,7 +51,3 @@ func _ready() -> void:
 	
 	await get_tree().create_timer(62).timeout # Wait for intro
 	add_child(timer)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

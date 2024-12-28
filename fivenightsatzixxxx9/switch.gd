@@ -9,26 +9,25 @@ extends Node3D
 @onready var babyrun_sound = $babyrun/runningSound
 @onready var shutdown_sound = $ceiling/lightbulb/shutdown
 @onready var chiburashka_sounds = $wardrobe/chiburashka/AudioListener3D
-@onready var player = $player
+@onready var player = $player/CharacterBody3D
 
 var chib_pressed: bool = false
 
 func _ready() -> void:
 	level_chiburashka()
+	await get_tree().create_timer(64).timeout # wait for intro
 	
-	await get_tree().create_timer(64).timeout # intro
-	
+	baby.visible = false
+	babyrun.visible = true
+	babyrun_animation.play("mixamo_com")
+	babyrun_sound.play()
+
+func level_baby() -> void:
 	guitar.visible = false
 	bulb.visible = false
 	baby.visible = true
 	omni.visible = true
 	shutdown_sound.play()
-	
-	await get_tree().create_timer(3.5).timeout
-	baby.visible = false
-	babyrun.visible = true
-	babyrun_animation.play("mixamo_com")
-	babyrun_sound.play()
 
 func level_chiburashka() -> void:
 	var children = chiburashka_sounds.get_children()
@@ -37,17 +36,25 @@ func level_chiburashka() -> void:
 	chib_pressed = false
 	
 	children[index].play()
-	await get_tree().create_timer(children[index].stream.get_length()).timeout
+	var result := await Promise.any([_create_promise(get_tree().create_timer(children[index].stream.get_length()).timeout), _create_promise(player.chib_sig)]).wait()
+	children[index].stop()
 	
-	if false == chib_pressed:
+	if !chib_pressed:
 		jumpscare()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-func jumpscare():
-	get_tree().quit()
-
 func _on_character_body_3d_chib_sig() -> void:
 	chib_pressed = true
+
+func _create_promise(promise_sig : Signal):
+	return Promise.new(
+		func(resolve: Callable, reject: Callable):
+		await promise_sig
+		resolve.call()
+	)
+
+func jumpscare():
+	get_tree().quit()
