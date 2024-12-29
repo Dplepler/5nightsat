@@ -1,12 +1,13 @@
 extends CharacterBody3D
 
+signal chib_sig
+signal baby_sig
+
 @onready var camera = $Camera3D
 
 const SPEED = 0.6
 const ROTATION_LIMIT = 70
 var last_delta = 0.0
-
-signal chib_sig
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -23,9 +24,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.y = lerp_angle(camera.rotation.y, to_rotate, SPEED * last_delta)
 	if event is InputEventMouseButton and MOUSE_BUTTON_LEFT == event.button_index:
 		var result = get_selection()
-		if result and result.collider and "chib" == result.collider.name:
-			emit_signal("chib_sig")
+		if result and result.collider:
+			match result.collider.name:
+				"chib":
+					emit_signal("chib_sig")
+func _input(event):
+	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_released("ui_accept"):
+			emit_signal("baby_sig")
 		
+	
 func get_selection():
 	var worldspace = get_world_3d().direct_space_state
 	var mouse = get_viewport().get_mouse_position()
