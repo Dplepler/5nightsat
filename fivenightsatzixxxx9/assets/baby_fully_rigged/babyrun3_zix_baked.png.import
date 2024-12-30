@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cbwno4u8rak37"
+path.s3tc="res://.godot/imported/babyrun3_zix_baked.png-57a8a52bdc93ece79e8e9dd66e0342ae.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "df94023e35659422d5e5b40c098a4b7b"
+}
+
+[deps]
+
+source_file="res://assets/baby_fully_rigged/babyrun3_zix_baked.png"
+dest_files=["res://.godot/imported/babyrun3_zix_baked.png-57a8a52bdc93ece79e8e9dd66e0342ae.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

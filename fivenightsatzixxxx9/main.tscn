@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=66 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Script" path="res://switch.gd" id="1_qgbxk"]
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
@@ -37,18 +37,20 @@
 [ext_resource type="AudioStream" uid="uid://cvvgyk5aemdx4" path="res://assets/sounds/chiburashka_2.mp3" id="33_lst6a"]
 [ext_resource type="PackedScene" uid="uid://nude6wkgqci0" path="res://assets/ceiling/scene.gltf" id="34_1pr6j"]
 [ext_resource type="AudioStream" uid="uid://bii4sk5o0oar5" path="res://assets/sounds/chiburashka_3.mp3" id="34_hukb3"]
-[ext_resource type="PackedScene" uid="uid://bs7uqr6lwqn3t" path="res://assets/baby_fully_rigged/baby0.glb" id="34_mn7fv"]
+[ext_resource type="PackedScene" uid="uid://bh13i1c3sa0eb" path="res://assets/baby_fully_rigged/baby0.glb" id="34_mn7fv"]
 [ext_resource type="AudioStream" uid="uid://beos7dnyjnh7q" path="res://assets/sounds/chiburashka_4.mp3" id="35_2i7c3"]
 [ext_resource type="PackedScene" uid="uid://cuve45fcbovlw" path="res://assets/lightbulb/scene.gltf" id="35_vljcd"]
+[ext_resource type="PackedScene" uid="uid://dr0m07gwq3saw" path="res://assets/chiburashka/chiburashka_scary.glb" id="36_0fj1x"]
 [ext_resource type="PackedScene" uid="uid://cnrko3o1as0pw" path="res://assets/door/door.glb" id="36_oib43"]
 [ext_resource type="PackedScene" uid="uid://b66fjqjnn4ahc" path="res://assets/wardrobe/wardrobe5.glb" id="36_sjta6"]
 [ext_resource type="AudioStream" uid="uid://cdjy4jy1mgi24" path="res://assets/sounds/intro.mp3" id="37_voqax"]
 [ext_resource type="AudioStream" uid="uid://8xehiyr57tf4" path="res://assets/sounds/shutdown.mp3" id="38_6eatn"]
 [ext_resource type="PackedScene" uid="uid://cf25wuh3rvwxy" path="res://assets/electric_guitar/guitar.glb" id="38_35lig"]
 [ext_resource type="Script" path="res://audio_stream_player.gd" id="38_w06ng"]
-[ext_resource type="AudioStream" uid="uid://bvglnt3h8ovv6" path="res://assets/sounds/running.mp3" id="42_fltyp"]
-[ext_resource type="PackedScene" uid="uid://ch4jf3tuvpdkg" path="res://assets/baby_fully_rigged/babyjump.glb" id="47_pf7p6"]
-[ext_resource type="AudioStream" uid="uid://cgafqitgqi5dw" path="res://assets/sounds/babyscaresound.mp3" id="49_7lku3"]
+[ext_resource type="AudioStream" uid="uid://cgafqitgqi5dw" path="res://assets/sounds/babyscaresound.mp3" id="48_2nx1t"]
+[ext_resource type="PackedScene" uid="uid://cr7ni62i6p5e1" path="res://assets/baby_fully_rigged/babyrun3.glb" id="48_ktpui"]
+[ext_resource type="AudioStream" uid="uid://bl4xk8y5oma5t" path="res://assets/sounds/static.mp3" id="49_yjyvy"]
+[ext_resource type="AudioStream" uid="uid://bvglnt3h8ovv6" path="res://assets/sounds/running.mp3" id="50_o6kod"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
 size = Vector3(13.5, 0.05, 10)
@@ -99,7 +101,7 @@ albedo_texture = ExtResource("2_nwd35")
 
 [sub_resource type="BoxMesh" id="BoxMesh_lrukb"]
 material = SubResource("StandardMaterial3D_a7tfj")
-size = Vector3(12, 4.245, 1)
+size = Vector3(11, 4.245, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fds5o"]
 albedo_texture = ExtResource("2_nwd35")
@@ -231,8 +233,11 @@ transform = Transform3D(1, 0, -1.35525e-20, 0, 1, 0, 1.35525e-20, 0, 1, 9.26762,
 visible = false
 
 [node name="flashlight" type="OmniLight3D" parent="desk/egg/flash"]
-transform = Transform3D(11.9048, 0, -2.10842e-12, 0, 11.9048, 0, 2.10842e-12, 0, 11.9048, 29.5611, 14.8406, 1.78203)
+transform = Transform3D(11.9048, 0, -2.10841e-12, 0, 11.9048, 0, 2.10841e-12, 0, 11.9048, 20.8452, 7.1061, 2.1351)
 visible = false
+light_energy = 2.0
+shadow_enabled = true
+shadow_blur = 10.0
 
 [node name="shelf" parent="." instance=ExtResource("10_sptsi")]
 transform = Transform3D(-0.07, 0, -1.50996e-09, 0, 0.04, 0, 1.05697e-08, 0, -0.01, 2.55115, 0.0249996, 4.68746)
@@ -292,15 +297,21 @@ stream = ExtResource("33_lst6a")
 [node name="AudioStreamPlayer3D4" type="AudioStreamPlayer3D" parent="wardrobe/chiburashka/AudioListener3D"]
 stream = ExtResource("34_hukb3")
 
-[node name="AudioStreamPlayer3D5" type="AudioStreamPlayer3D" parent="wardrobe/chiburashka/AudioListener3D"]
-stream = ExtResource("35_2i7c3")
-
 [node name="chib" type="StaticBody3D" parent="wardrobe/chiburashka"]
 
 [node name="chibmesh" type="CollisionShape3D" parent="wardrobe/chiburashka/chib"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 0.999993, 0, 2.98023e-08, 0, 1, 0.00402832, -0.129439, 0)
 visible = false
 shape = SubResource("BoxShape3D_d8bf8")
+
+[node name="jumpscare_sound" type="AudioStreamPlayer3D" parent="wardrobe/chiburashka"]
+stream = ExtResource("35_2i7c3")
+volume_db = 80.0
+unit_size = 71.61
+
+[node name="chiburashka_scary" parent="wardrobe/chiburashka" instance=ExtResource("36_0fj1x")]
+transform = Transform3D(3.5916, 0, -3.47856, 0, 5, 0, 3.47856, 0, 3.5916, 1.1786, -5.96509, 12.3671)
+visible = false
 
 [node name="camel1" parent="wardrobe" instance=ExtResource("28_tojde")]
 transform = Transform3D(0.0074723, 0, -0.00501645, 0, 0.009, 0, 0.00501645, 0, 0.0074723, 1.59269, 0.222233, -1.6994)
@@ -317,6 +328,7 @@ visible = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="wardrobe"]
 transform = Transform3D(-5.46392e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.46392e-08, 0.861058, 4.46349, 0.659506)
+visible = false
 light_color = Color(0.654418, 0, 0.0534353, 1)
 light_energy = 3.889
 light_size = 0.39
@@ -337,10 +349,11 @@ transform = Transform3D(0.44, 0, 0, 0, 0.13, 0, 0, 0, 0.575, 13.5686, 4.26903, 1
 transform = Transform3D(15, 0, -3.11959e-14, 0, 50.762, 0, 4.0779e-14, 0, 11.475, -29.8832, 12.0848, -230.376)
 
 [node name="bulb" type="OmniLight3D" parent="ceiling/lightbulb"]
-transform = Transform3D(0.151515, 0, -6.68257e-15, 0, 0.151537, 0, 6.46132e-15, 0, 0.151558, -0.0258246, -0.0865764, -0.0306211)
+transform = Transform3D(0.151515, 0, -6.68258e-15, 0, 0.151537, 0, 6.46133e-15, 0, 0.151558, -0.0258246, -0.107128, -0.0306211)
 light_color = Color(1, 0.827451, 0.647059, 1)
 light_bake_mode = 1
 shadow_enabled = true
+shadow_blur = 5.0
 omni_range = 8.408
 
 [node name="shutdown" type="AudioStreamPlayer3D" parent="ceiling/lightbulb"]
@@ -353,7 +366,7 @@ environment = SubResource("Environment_2sjlx")
 transform = Transform3D(0.136499, 0, 0.0463567, 0, 0.215, 0, -0.166112, 0, 0.0380927, 5.77173, 0.207536, 4.18275)
 
 [node name="upperWall" type="MeshInstance3D" parent="door"]
-transform = Transform3D(1, 0, -7.45058e-08, 0, 1, 0, -1.19209e-07, 0, 1, 4.5362, 24.5121, 1.79585)
+transform = Transform3D(1, 0, -7.45058e-08, 0, 1, 0, -1.66893e-06, 0, 1, 4.9178, 24.3318, 1.68549)
 mesh = SubResource("BoxMesh_lrukb")
 
 [node name="doorFrame" type="MeshInstance3D" parent="door"]
@@ -376,53 +389,58 @@ current = true
 stream = ExtResource("37_voqax")
 script = ExtResource("38_w06ng")
 
-[node name="babyrun" parent="." instance=ExtResource("47_pf7p6")]
-transform = Transform3D(-6.22918, 2.97661, -7.23444, 1.4995, 9.53065, 2.63025, 7.67781, 0.553621, -6.38315, 4.86834, -1.83279, 4.43769)
+[node name="babyrun" parent="." instance=ExtResource("48_ktpui")]
+transform = Transform3D(-4.85656, -1.32242, -9.78085, 0, 10.9008, -1.47385, 9.86984, -0.650712, -4.81277, 6.93039, 0.203052, 1.79254)
 visible = false
 
-[node name="Skeleton3D" parent="babyrun/Armature" index="0"]
-bones/0/position = Vector3(0.00995072, 0.331871, -0.294375)
+[node name="FBHead" parent="babyrun/Armature/Object_7" index="0"]
+transform = Transform3D(0.0738735, 0.037883, -0.00615225, -0.00169989, 0.0210519, 0.0977358, 0.0306563, -0.0901204, 0.0202447, 0.20442, 0.579304, -0.426456)
+
+[node name="Skeleton3D" parent="babyrun/Armature" index="1"]
+bones/0/position = Vector3(0.00995071, 0.331871, -0.294375)
 bones/0/rotation = Quaternion(-0.762547, 0.140604, 0.0612722, 0.628489)
-bones/1/rotation = Quaternion(0.394529, 0.0179638, -0.149341, 0.906488)
-bones/2/rotation = Quaternion(0.00873275, 0.00812614, 0.010446, 0.999874)
-bones/3/rotation = Quaternion(0.0084666, 0.00910877, 0.0100456, 0.999872)
-bones/4/rotation = Quaternion(0.120832, -0.00482231, -0.0690717, 0.990255)
-bones/5/rotation = Quaternion(-0.465387, -0.0939606, 0.0578561, 0.878202)
+bones/1/rotation = Quaternion(0.394529, 0.0179639, -0.149341, 0.906489)
+bones/2/rotation = Quaternion(0.00873283, 0.00812612, 0.010446, 0.999874)
+bones/3/rotation = Quaternion(0.00846648, 0.00910879, 0.0100456, 0.999872)
+bones/4/rotation = Quaternion(0.120832, -0.0048224, -0.0690717, 0.990255)
+bones/5/rotation = Quaternion(-0.465388, -0.0939607, 0.0578562, 0.878202)
 bones/7/rotation = Quaternion(0.573648, 0.262186, -0.41306, 0.656938)
-bones/8/rotation = Quaternion(0.188823, -0.0900258, 0.154599, 0.965578)
-bones/9/rotation = Quaternion(-0.0292467, 0.160005, 0.0562395, 0.985079)
-bones/10/rotation = Quaternion(0.026043, -0.533857, 0.121232, 0.836433)
-bones/11/rotation = Quaternion(-0.112588, 0.776566, -0.166176, 0.597206)
-bones/12/rotation = Quaternion(-0.0680051, -0.0036133, 0.16518, 0.983909)
-bones/13/rotation = Quaternion(-0.0390764, 0.000125788, 0.159242, 0.986466)
-bones/15/rotation = Quaternion(-0.328205, 0.760469, -0.501588, -0.249758)
-bones/16/rotation = Quaternion(0.686995, 0.444545, -0.0522263, 0.572443)
-bones/17/rotation = Quaternion(0.0178469, -0.422937, -0.119712, 0.89804)
-bones/18/rotation = Quaternion(0.0550108, 0.809467, 0.204606, -0.547607)
-bones/19/rotation = Quaternion(-0.0183512, 0.929647, 0.219631, 0.295266)
-bones/20/rotation = Quaternion(0.190933, 0.0114798, -0.0806881, 0.978214)
-bones/21/rotation = Quaternion(0.0859833, 0.0352084, -0.093794, 0.991247)
-bones/23/rotation = Quaternion(0.107499, 0.102466, 0.984422, -0.0941223)
-bones/24/rotation = Quaternion(-0.7128, 0.178918, -0.229564, 0.638126)
+bones/8/rotation = Quaternion(0.188823, -0.0900257, 0.1546, 0.965578)
+bones/9/rotation = Quaternion(-0.0292468, 0.160005, 0.0562394, 0.985079)
+bones/10/rotation = Quaternion(0.0260429, -0.533857, 0.121232, 0.836433)
+bones/11/rotation = Quaternion(-0.11259, 0.776563, -0.166178, 0.597208)
+bones/12/rotation = Quaternion(-0.0680048, -0.0036091, 0.165181, 0.983909)
+bones/13/rotation = Quaternion(-0.0390765, 0.000125786, 0.159243, 0.986466)
+bones/15/rotation = Quaternion(-0.328205, 0.760468, -0.501588, -0.249758)
+bones/16/rotation = Quaternion(0.686995, 0.444544, -0.0522262, 0.572443)
+bones/17/rotation = Quaternion(0.0178471, -0.422937, -0.119712, 0.89804)
+bones/18/rotation = Quaternion(0.055011, 0.809467, 0.204606, -0.547607)
+bones/19/rotation = Quaternion(-0.0183498, 0.929647, 0.219631, 0.295265)
+bones/20/rotation = Quaternion(0.190933, 0.0114788, -0.0806869, 0.978214)
+bones/21/rotation = Quaternion(0.0859821, 0.0352084, -0.0937933, 0.991247)
+bones/23/rotation = Quaternion(0.107498, 0.102466, 0.984422, -0.0941227)
+bones/24/rotation = Quaternion(-0.7128, 0.178919, -0.229564, 0.638126)
 bones/25/rotation = Quaternion(0.807331, 0.111597, 0.234264, 0.529984)
-bones/26/rotation = Quaternion(0.0680453, -5.95604e-06, 0.0101625, 0.997631)
-bones/28/rotation = Quaternion(-0.075845, 0.422752, 0.850457, 0.30373)
-bones/29/rotation = Quaternion(-0.968327, -0.0304948, -0.0239244, 0.246659)
-bones/30/rotation = Quaternion(0.847786, -0.0395379, -0.0631877, 0.525074)
-bones/31/rotation = Quaternion(-0.160387, 0.041742, 0.0996721, 0.981121)
-
-[node name="Object_7" parent="babyrun/Armature/Skeleton3D" index="0"]
-transform = Transform3D(0.99801, 0.0608695, 0.0164855, -0.0607094, 0.998105, -0.0100747, -0.0170677, 0.00905386, 0.999813, 0.00741422, 0.106313, 0.0305066)
-
-[node name="runningSound" type="AudioStreamPlayer3D" parent="babyrun"]
-transform = Transform3D(0.0170238, 0, 0.141839, 0, 0.142857, 0, -0.141839, 0, 0.0170238, 0.308405, -0.00414443, 1.476)
-stream = ExtResource("42_fltyp")
+bones/26/rotation = Quaternion(0.0680457, -5.93254e-06, 0.0101626, 0.997631)
+bones/28/rotation = Quaternion(-0.0758447, 0.422752, 0.850457, 0.303731)
+bones/29/rotation = Quaternion(-0.968327, -0.0304947, -0.0239245, 0.246659)
+bones/30/rotation = Quaternion(0.847786, -0.0395379, -0.0631878, 0.525074)
+bones/31/rotation = Quaternion(-0.160386, 0.0417421, 0.0996721, 0.981121)
 
 [node name="jumpscareSound" type="AudioStreamPlayer3D" parent="babyrun"]
-stream = ExtResource("49_7lku3")
+stream = ExtResource("48_2nx1t")
 volume_db = 80.0
-unit_size = 72.64
+unit_size = 97.41
 
+[node name="runningSound" type="AudioStreamPlayer3D" parent="babyrun"]
+stream = ExtResource("50_o6kod")
+volume_db = 74.667
+
+[node name="static" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.441506, -0.12022, -0.889168, 0, 0.990983, -0.133986, 0.897259, -0.0591556, -0.437525, 6.93039, 0.203052, 1.79254)
+stream = ExtResource("49_yjyvy")
+
+[connection signal="shake" from="." to="player/CharacterBody3D/Camera3D" method="_on_main_shake"]
 [connection signal="baby_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_baby_sig"]
 [connection signal="chib_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_chib_sig"]
 

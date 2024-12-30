@@ -1,70 +1,87 @@
 extends Node3D
 
 signal baby_die
+signal shake
 
 @onready var guitar = $wardrobe/guitar_hanger5/guitar
 @onready var baby = $wardrobe/guitar_hanger5/baby0
 @onready var bulb = $ceiling/lightbulb
 @onready var omni = $wardrobe/OmniLight3D
 @onready var babyrun = $babyrun
+@onready var babyrun_head = $babyrun/Armature/Object_7/FBHead
 @onready var babyrun_animation = $babyrun/AnimationPlayer
 @onready var flash = $desk/egg/flash
+@onready var chiburashka_scary = $wardrobe/chiburashka/chiburashka_scary
 
 @onready var babyrun_sound = $babyrun/runningSound
 @onready var babyjump_sound = $babyrun/jumpscareSound
+@onready var static_sound = $static
 @onready var shutdown_sound = $ceiling/lightbulb/shutdown
 @onready var chiburashka_sounds = $wardrobe/chiburashka/AudioListener3D
+@onready var chiburashka_laugh_sound = $wardrobe/chiburashka/jumpscare_sound
 
 @onready var player = $player/CharacterBody3D
 
 var chib_pressed: bool = false
 var flash_pressed: bool = false
-
 var egg_flicker_amount = 0
 
+const JUMPSCARE_DURATION = 2
+
 func _ready() -> void:
-	await get_tree().create_timer(5).timeout 
+	await get_tree().create_timer(1).timeout 
 	level_baby()
 	#level_chiburashka()
 	await get_tree().create_timer(64).timeout # wait for intro
 
 func level_baby() -> void:
-	bulb.visible = false
-	await get_tree().create_timer(0.3).timeout
-	babyrun.visible = true
-	bulb.visible = true
+	level_baby_move_baby()
+	static_sound.play()
 	
 	flash.visible = true
-	var result := await Promise.any([_create_promise(get_tree().create_timer(6).timeout), _create_promise(baby_die)]).wait()
-	babyrun.visible = false
+	var result := await Promise.any([_create_promise(get_tree().create_timer(2).timeout), _create_promise(baby_die)]).wait()
+	static_sound.stop()
+	flash.visible = false
 	
 	if !flash_pressed:
+		babyrun.visible = false
 		level_baby_lose()
-	
+	else:
+		level_baby_move_baby()
+		
 func level_baby_lose() -> void:
 	shutdown()
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(5).timeout
 	
-	babyrun.position = Vector3(12.679, 0.481, -2.553)
-	babyrun.rotation_degrees = Vector3(0.3, -80.3, 0.2)
-	babyrun.scale = Vector3(7, 7, 7)
+	babyrun.position = Vector3(14, 0.481, -2.553)
+	babyrun.rotation_degrees = Vector3(0.3, -87.3, 0.2)
 	
 	babyrun_sound.play()
+	babyrun_head.visible = false
 	babyrun_animation.play("running")
 	babyrun.visible = true
 	
 	await get_tree().create_timer(1.4).timeout
-	babyrun_animation.play("jump")
 	
 	babyjump_sound.play()
 	babyrun_sound.stop()
+
+	babyrun.position = Vector3(5.892, -1.5, -2.302)
+	babyrun.rotation_degrees = Vector3(-2, -91.4, 1.3)
+	babyrun_head.visible = true
 	
-	babyrun.position = Vector3(7.418, -0.016, -2.3)
-	babyrun.rotation_degrees = Vector3(-11.8, -79.3, -2)
-	
-	await get_tree().create_timer(0.75).timeout
+	emit_signal("shake")
+	await get_tree().create_timer(JUMPSCARE_DURATION).timeout
+	emit_signal("shake")
 	jumpscare()
-	
+
+# Makes baby appear or disappear
+func level_baby_move_baby():
+	bulb.visible = false
+	await get_tree().create_timer(0.3).timeout
+	babyrun.visible = !babyrun.visible
+	bulb.visible = true
+
 func level_chiburashka() -> void:
 	var children = chiburashka_sounds.get_children()
 	var index = randi_range(0, children.size() - 1)
@@ -76,8 +93,29 @@ func level_chiburashka() -> void:
 	children[index].stop()
 	
 	if !chib_pressed:
-		jumpscare()
+		level_chiburashka_lose()
 
+func level_chiburashka_lose() -> void:
+	await get_tree().create_timer(randf_range(1, 20)).timeout # Chiburashka will jump randomly
+	
+	static_sound.play()
+	chiburashka_laugh_sound.play()
+	
+	chiburashka_scary.visible = true
+	turn_egg()
+	
+	emit_signal("shake")
+	await get_tree().create_timer(JUMPSCARE_DURATION).timeout
+	emit_signal("shake")
+	
+	static_sound.stop()
+	chiburashka_laugh_sound.stop()
+	
+	chiburashka_scary.visible = false
+	flash.visible = false
+	turn_egg()
+	jumpscare()
+	
 func shutdown() -> void:
 	guitar.visible = false
 	bulb.visible = false
@@ -85,6 +123,10 @@ func shutdown() -> void:
 	omni.visible = true
 	shutdown_sound.play()
 
+func turn_egg() -> void:
+	flash.visible = true
+	flash.get_child(0).visible = true
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

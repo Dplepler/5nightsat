@@ -20,6 +20,9 @@ var timer : Timer = Timer.new()
 var chance_denominator : int = DEFAULT_CHANCE
 var images_in_current_flash : int = 0
 var last_sprite
+var shake_cam : bool = false
+var original_position = Vector3()
+var shake_intensity: float = 0.7
 
 func _on_timer_timeout():
 	if last_sprite and last_sprite.visible:
@@ -45,9 +48,22 @@ func _on_timer_timeout():
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	original_position = global_transform.origin
+	
 	timer.wait_time = FLASH_DELAY
 	timer.autostart = true
 	timer.connect("timeout", _on_timer_timeout)
 	
 	await get_tree().create_timer(62).timeout # Wait for intro
 	add_child(timer)
+
+func _process(delta: float) -> void:
+	if shake_cam:
+		global_transform.origin = original_position + Vector3(
+		randf_range(-shake_intensity, shake_intensity),
+		randf_range(-shake_intensity, shake_intensity),
+		randf_range(-shake_intensity, shake_intensity))
+	
+func _on_main_shake() -> void:
+	global_transform.origin = original_position
+	shake_cam = !shake_cam
