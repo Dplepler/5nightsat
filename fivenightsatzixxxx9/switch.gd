@@ -1,5 +1,6 @@
 extends Node3D
 
+signal crawly(type_movement: int)
 signal baby_die
 signal shake
 
@@ -11,6 +12,7 @@ signal shake
 @onready var babyrun_head = $babyrun/Armature/Object_7/FBHead
 @onready var babyrun_animation = $babyrun/AnimationPlayer
 @onready var flash = $desk/egg/flash
+@onready var chiburashka = $wardrobe/chiburashka
 @onready var chiburashka_scary = $wardrobe/chiburashka/chiburashka_scary
 
 @onready var babyrun_sound = $babyrun/runningSound
@@ -30,31 +32,33 @@ const JUMPSCARE_DURATION = 2
 
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout 
-	level_baby()
+	#level_baby()
 	#level_chiburashka()
+	level_crawly()
 	await get_tree().create_timer(64).timeout # wait for intro
 
 func level_baby() -> void:
-	level_baby_move_baby()
+	move_character(babyrun)
 	static_sound.play()
 	
 	flash.visible = true
-	var result := await Promise.any([_create_promise(get_tree().create_timer(2).timeout), _create_promise(baby_die)]).wait()
+	await Promise.any([_create_promise(get_tree().create_timer(2).timeout), _create_promise(baby_die)]).wait()
 	static_sound.stop()
 	flash.visible = false
 	
 	if !flash_pressed:
-		babyrun.visible = false
 		level_baby_lose()
 	else:
-		level_baby_move_baby()
+		move_character(babyrun)
 		
 func level_baby_lose() -> void:
+	babyrun.visible = false
 	shutdown()
-	await get_tree().create_timer(5).timeout
+	
+	await get_tree().create_timer(randf_range(1, 20)).timeout
 	
 	babyrun.position = Vector3(14, 0.481, -2.553)
-	babyrun.rotation_degrees = Vector3(0.3, -87.3, 0.2)
+	babyrun.rotation_degrees = Vector3(0.3, -70, 0.2)
 	
 	babyrun_sound.play()
 	babyrun_head.visible = false
@@ -75,11 +79,14 @@ func level_baby_lose() -> void:
 	emit_signal("shake")
 	jumpscare()
 
+func level_crawly() -> void:
+	emit_signal("crawly", randi_range(0, 1))
+
 # Makes baby appear or disappear
-func level_baby_move_baby():
+func move_character(character):
 	bulb.visible = false
 	await get_tree().create_timer(0.3).timeout
-	babyrun.visible = !babyrun.visible
+	character.visible = !character.visible
 	bulb.visible = true
 
 func level_chiburashka() -> void:
@@ -89,18 +96,20 @@ func level_chiburashka() -> void:
 	chib_pressed = false
 	
 	children[index].play()
-	var result := await Promise.any([_create_promise(get_tree().create_timer(children[index].stream.get_length()).timeout), _create_promise(player.chib_sig)]).wait()
+	await Promise.any([_create_promise(get_tree().create_timer(children[index].stream.get_length()).timeout), _create_promise(player.chib_sig)]).wait()
 	children[index].stop()
 	
 	if !chib_pressed:
 		level_chiburashka_lose()
 
 func level_chiburashka_lose() -> void:
+	move_character(chiburashka)
+	chiburashka_laugh_sound.play()
 	await get_tree().create_timer(randf_range(1, 20)).timeout # Chiburashka will jump randomly
 	
 	static_sound.play()
-	chiburashka_laugh_sound.play()
 	
+	chiburashka.visible = true
 	chiburashka_scary.visible = true
 	turn_egg()
 	
@@ -128,7 +137,7 @@ func turn_egg() -> void:
 	flash.get_child(0).visible = true
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 #chib_sig

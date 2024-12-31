@@ -1,0 +1,11 @@
+Model Information:
+* title:	Vent - RealityScan
+* source:	https://sketchfab.com/3d-models/vent-realityscan-e779d591d51b4b26841b6496d0885156
+* author:	teddygbg (https://sketchfab.com/teddygbg)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Vent - RealityScan" (https://sketchfab.com/3d-models/vent-realityscan-e779d591d51b4b26841b6496d0885156) by teddygbg (https://sketchfab.com/teddygbg) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

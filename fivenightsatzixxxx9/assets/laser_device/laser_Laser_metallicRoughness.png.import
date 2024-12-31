@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cml2gbpfe03oq"
+path.s3tc="res://.godot/imported/laser_Laser_metallicRoughness.png-f4c5a9b286c93d4f1c26d24d053c66eb.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "5619f74c0d250221b393d7499eeee9dd"
+}
+
+[deps]
+
+source_file="res://assets/laser_device/laser_Laser_metallicRoughness.png"
+dest_files=["res://.godot/imported/laser_Laser_metallicRoughness.png-f4c5a9b286c93d4f1c26d24d053c66eb.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

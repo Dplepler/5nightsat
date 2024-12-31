@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=77 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Script" path="res://switch.gd" id="1_qgbxk"]
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
@@ -30,10 +30,15 @@
 [ext_resource type="PackedScene" uid="uid://610esn6o7atn" path="res://assets/wardrobe/wardrobe.glb" id="25_vp37e"]
 [ext_resource type="PackedScene" uid="uid://dakvipql4mih5" path="res://assets/chiburashka/scene.gltf" id="27_5yck3"]
 [ext_resource type="PackedScene" uid="uid://b7t5yexlffcw3" path="res://assets/camel/camel1.glb" id="28_tojde"]
+[ext_resource type="AudioStream" uid="uid://c636gvmx1qo3g" path="res://assets/sounds/squid.mp3" id="29_4ys1k"]
 [ext_resource type="PackedScene" uid="uid://b30xmaqdj0ctt" path="res://assets/jacket/scene.gltf" id="29_527gx"]
+[ext_resource type="AudioStream" uid="uid://b5fyk3tdejl7c" path="res://assets/sounds/2.mp3" id="30_mcjlp"]
 [ext_resource type="PackedScene" uid="uid://623y8k0gdjas" path="res://assets/guitar_stand/untitled.glb" id="30_psgjr"]
+[ext_resource type="AudioStream" uid="uid://cj71f5qnxh5n4" path="res://assets/sounds/lauging.mp3" id="31_sddxn"]
 [ext_resource type="AudioStream" uid="uid://duvu5sp2lrvta" path="res://assets/sounds/chiburashka_song.mp3" id="31_v83a7"]
+[ext_resource type="AudioStream" uid="uid://cajmw0kc205ev" path="res://assets/sounds/10.mp3" id="32_aa88q"]
 [ext_resource type="AudioStream" uid="uid://f6v3al0vjwb1" path="res://assets/sounds/chiburashka_1.mp3" id="32_srv5u"]
+[ext_resource type="AudioStream" uid="uid://lwlodpoqfm48" path="res://assets/sounds/iga.mp3" id="33_k787g"]
 [ext_resource type="AudioStream" uid="uid://cvvgyk5aemdx4" path="res://assets/sounds/chiburashka_2.mp3" id="33_lst6a"]
 [ext_resource type="PackedScene" uid="uid://nude6wkgqci0" path="res://assets/ceiling/scene.gltf" id="34_1pr6j"]
 [ext_resource type="AudioStream" uid="uid://bii4sk5o0oar5" path="res://assets/sounds/chiburashka_3.mp3" id="34_hukb3"]
@@ -43,6 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://dr0m07gwq3saw" path="res://assets/chiburashka/chiburashka_scary.glb" id="36_0fj1x"]
 [ext_resource type="PackedScene" uid="uid://cnrko3o1as0pw" path="res://assets/door/door.glb" id="36_oib43"]
 [ext_resource type="PackedScene" uid="uid://b66fjqjnn4ahc" path="res://assets/wardrobe/wardrobe5.glb" id="36_sjta6"]
+[ext_resource type="PackedScene" uid="uid://drs03xqahc77r" path="res://assets/laser_device/laser.glb" id="36_xg5ab"]
 [ext_resource type="AudioStream" uid="uid://cdjy4jy1mgi24" path="res://assets/sounds/intro.mp3" id="37_voqax"]
 [ext_resource type="AudioStream" uid="uid://8xehiyr57tf4" path="res://assets/sounds/shutdown.mp3" id="38_6eatn"]
 [ext_resource type="PackedScene" uid="uid://cf25wuh3rvwxy" path="res://assets/electric_guitar/guitar.glb" id="38_35lig"]
@@ -51,6 +57,10 @@
 [ext_resource type="PackedScene" uid="uid://cr7ni62i6p5e1" path="res://assets/baby_fully_rigged/babyrun3.glb" id="48_ktpui"]
 [ext_resource type="AudioStream" uid="uid://bl4xk8y5oma5t" path="res://assets/sounds/static.mp3" id="49_yjyvy"]
 [ext_resource type="AudioStream" uid="uid://bvglnt3h8ovv6" path="res://assets/sounds/running.mp3" id="50_o6kod"]
+[ext_resource type="PackedScene" uid="uid://c7lfdjy7lwroy" path="res://assets/baby_fully_rigged/crawly.glb" id="57_aftrf"]
+[ext_resource type="Script" path="res://enemy.gd" id="59_n6ahx"]
+[ext_resource type="PackedScene" uid="uid://b7et5h4xmagwy" path="res://assets/vent/scene.gltf" id="59_nfi5g"]
+[ext_resource type="PackedScene" uid="uid://smdahv2snnaa" path="res://assets/weapon/scene.gltf" id="60_5y6eq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
 size = Vector3(13.5, 0.05, 10)
@@ -109,6 +119,10 @@ albedo_texture = ExtResource("2_nwd35")
 [sub_resource type="BoxMesh" id="BoxMesh_tq6lp"]
 material = SubResource("StandardMaterial3D_fds5o")
 size = Vector3(4.5, 28, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mit4x"]
+radius = 0.001
+height = 0.005
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_qgbxk")
@@ -204,6 +218,9 @@ shape = SubResource("BoxShape3D_1nckx")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall4/CollisionShape3D"]
 mesh = SubResource("BoxMesh_2223x")
 
+[node name="vent" parent="wall4" instance=ExtResource("59_nfi5g")]
+transform = Transform3D(-0.684803, 0, -4.95288, 0, 5, 0, 4.95288, 0, -0.684803, -8.12041, 5.72997, -9.47977)
+
 [node name="chair" parent="." instance=ExtResource("3_hhabd")]
 transform = Transform3D(1.9799, 0, 1.9799, 0, 2.8, 0, -1.9799, 0, 1.9799, -1.92768, 0, 2.24998)
 
@@ -271,6 +288,27 @@ transform = Transform3D(0.0582668, 0.632188, 13.3182, -0.938907, 13.2855, -0.626
 
 [node name="player" parent="." instance=ExtResource("24_rryci")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.91481, 1.37026, -0.519722)
+
+[node name="sound1" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D" index="8"]
+stream = ExtResource("29_4ys1k")
+
+[node name="sound2" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D" index="9"]
+stream = ExtResource("30_mcjlp")
+
+[node name="sound3" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D" index="10"]
+stream = ExtResource("31_sddxn")
+
+[node name="sound4" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D" index="11"]
+stream = ExtResource("32_aa88q")
+
+[node name="sound5" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D" index="12"]
+stream = ExtResource("33_k787g")
+
+[node name="weapon" parent="player/CharacterBody3D/Camera3D" index="13" instance=ExtResource("60_5y6eq")]
+transform = Transform3D(-4, 0, -3.49691e-07, 0, 4, 0, 3.49691e-07, 0, -4, -0.0819275, -0.900322, -0.637941)
+
+[node name="laser" parent="player/CharacterBody3D/Camera3D" index="14" instance=ExtResource("36_xg5ab")]
+transform = Transform3D(2.98281, -2.34025e-07, 0.320718, -0.31615, 1.00908, 2.94032, -0.0539384, -5.91454, 0.501648, -0.0775935, -0.974515, -0.844635)
 
 [node name="wardrobe" parent="." instance=ExtResource("25_vp37e")]
 transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, 3.66789, 0.0249996, -4.24087)
@@ -362,21 +400,6 @@ stream = ExtResource("38_6eatn")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2sjlx")
 
-[node name="door" parent="." instance=ExtResource("36_oib43")]
-transform = Transform3D(0.136499, 0, 0.0463567, 0, 0.215, 0, -0.166112, 0, 0.0380927, 5.77173, 0.207536, 4.18275)
-
-[node name="upperWall" type="MeshInstance3D" parent="door"]
-transform = Transform3D(1, 0, -7.45058e-08, 0, 1, 0, -1.66893e-06, 0, 1, 4.9178, 24.3318, 1.68549)
-mesh = SubResource("BoxMesh_lrukb")
-
-[node name="doorFrame" type="MeshInstance3D" parent="door"]
-transform = Transform3D(1, 0, -7.45058e-08, 0, 1, 0, -1.19209e-07, 0, 1, 12.506, 13.8478, 1.74191)
-mesh = SubResource("BoxMesh_tq6lp")
-
-[node name="doorFrame2" type="MeshInstance3D" parent="door"]
-transform = Transform3D(1, 0, -7.45058e-08, 0, 1, 0, -1.19209e-07, 0, 1, -2.6457, 13.8478, 1.86954)
-mesh = SubResource("BoxMesh_tq6lp")
-
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5387, 1.1119, 1.5855)
 current = true
@@ -440,9 +463,104 @@ volume_db = 74.667
 transform = Transform3D(-0.441506, -0.12022, -0.889168, 0, 0.990983, -0.133986, 0.897259, -0.0591556, -0.437525, 6.93039, 0.203052, 1.79254)
 stream = ExtResource("49_yjyvy")
 
+[node name="upperWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.136499, 0, 0.0463567, 0, 0.215, 0, -0.166112, 0, 0.0380927, 6.52114, 5.43887, 3.43005)
+mesh = SubResource("BoxMesh_lrukb")
+skeleton = NodePath("door")
+
+[node name="doorFrame" type="MeshInstance3D" parent="upperWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.54972e-06, 0, 1, 7.5882, -10.484, 0.056427)
+mesh = SubResource("BoxMesh_tq6lp")
+skeleton = NodePath("../door")
+
+[node name="doorFrame2" type="MeshInstance3D" parent="upperWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.54972e-06, 0, 1, -7.5635, -10.484, 0.184036)
+mesh = SubResource("BoxMesh_tq6lp")
+skeleton = NodePath("../door")
+
+[node name="door" parent="upperWall" instance=ExtResource("36_oib43")]
+transform = Transform3D(-0.547927, 0, 0.133844, 0, 1, 0, -0.836526, 0, -0.0876683, -4.9178, -24.3318, -1.6855)
+
+[node name="enemy" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.285156, 84.4583, 390.982, -36.463, -389.349, 84.132, 398.335, -35.7009, 7.4214, 9.29316, 5.82169, 1.795)
+script = ExtResource("59_n6ahx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="enemy"]
+transform = Transform3D(0.999999, 0, -1.78814e-07, 0, 1, 0, 1.78814e-07, 0, 0.999999, -0.000161401, 0.00257125, 9.71891e-05)
+shape = SubResource("CapsuleShape3D_mit4x")
+
+[node name="crawly" parent="enemy" instance=ExtResource("57_aftrf")]
+transform = Transform3D(-0.99838, 0, -0.0568846, 0, 1, 0, 0.0568846, 0, -0.99838, 0, 0, 0)
+
+[node name="Skeleton3D" parent="enemy/crawly/Armature" index="0"]
+bones/0/position = Vector3(0.00453215, -0.0190002, -0.154801)
+bones/0/rotation = Quaternion(-0.0209707, 0.0554777, -0.00591738, 0.998222)
+bones/1/rotation = Quaternion(0.00897993, 0.0128439, 0.00883172, 0.999838)
+bones/2/rotation = Quaternion(0.0891825, -0.0272388, -0.0234446, 0.995367)
+bones/3/rotation = Quaternion(0.0914495, -0.0264377, -0.0149242, 0.995347)
+bones/4/rotation = Quaternion(-0.15529, 0.0618711, 0.0361546, 0.985266)
+bones/5/rotation = Quaternion(-0.291999, -0.167004, -0.026816, 0.941343)
+bones/7/rotation = Quaternion(-0.597367, -0.409714, 0.370442, -0.581429)
+bones/8/rotation = Quaternion(0.255073, -0.235963, 0.330633, 0.877463)
+bones/9/rotation = Quaternion(-0.0966274, 0.123122, 0.27958, 0.94728)
+bones/10/rotation = Quaternion(-0.719501, 0.0556688, 0.292079, 0.627622)
+bones/11/rotation = Quaternion(0.198576, 0.065651, 0.275358, 0.938315)
+bones/12/rotation = Quaternion(-0.0861833, 0.00531735, -0.0930896, 0.991907)
+bones/13/rotation = Quaternion(-0.00945074, 0.00385635, 0.0763031, 0.997032)
+bones/15/rotation = Quaternion(0.109654, -0.0225236, 0.0417509, 0.992837)
+bones/16/rotation = Quaternion(0.527321, -0.00198693, -0.0700877, 0.846768)
+bones/17/rotation = Quaternion(0.775979, 0.0149016, -0.192862, 0.600365)
+bones/19/rotation = Quaternion(-0.0616913, 0.000191099, -0.00135883, 0.998094)
+bones/20/rotation = Quaternion(0.286821, -0.0164129, -0.0440417, 0.95683)
+bones/21/rotation = Quaternion(0.445154, -0.0181188, -0.0632308, 0.893035)
+bones/23/rotation = Quaternion(-0.0927283, -0.00619156, -0.00496702, 0.99566)
+bones/24/rotation = Quaternion(0.706237, -0.0195341, -0.107386, 0.699512)
+bones/25/rotation = Quaternion(0.672564, -0.018646, -0.109483, 0.731658)
+bones/27/rotation = Quaternion(-0.0683876, -0.0331626, -0.00302181, 0.997103)
+bones/28/rotation = Quaternion(0.372344, -0.00265082, -0.0811553, 0.924536)
+bones/29/rotation = Quaternion(0.928053, -0.0109961, -0.200974, 0.313377)
+bones/31/rotation = Quaternion(0.630112, -0.384398, 0.437168, 0.513888)
+bones/32/rotation = Quaternion(-0.148042, 0.376148, -0.324244, 0.855256)
+bones/33/rotation = Quaternion(-0.00942919, 0.205156, -0.552893, 0.807547)
+bones/34/rotation = Quaternion(-0.572137, 0.00182346, -0.148078, 0.806678)
+bones/35/rotation = Quaternion(0.102175, -0.0885138, -0.273869, 0.952219)
+bones/36/rotation = Quaternion(0.011602, -0.109224, 0.0305794, 0.993479)
+bones/37/rotation = Quaternion(-0.0116539, -0.49336, 0.0264608, 0.869344)
+bones/39/rotation = Quaternion(0.00296579, -0.0121439, -0.0359713, 0.999275)
+bones/40/rotation = Quaternion(0.000128216, 0.00618403, 0.00901451, 0.99994)
+bones/41/rotation = Quaternion(0.0108671, 0.00304412, 0.00259235, 0.999933)
+bones/43/rotation = Quaternion(-0.0803787, 0.00128057, 0.021474, 0.996532)
+bones/44/rotation = Quaternion(0.0797318, 0.00382407, 0.0116058, 0.996742)
+bones/45/rotation = Quaternion(0.102468, 0.00273977, 0.0149599, 0.99462)
+bones/47/rotation = Quaternion(-0.0890738, 0.0239613, 0.0888854, 0.991762)
+bones/48/rotation = Quaternion(0.0627889, 0.000337445, -0.00874659, 0.997989)
+bones/49/rotation = Quaternion(0.098969, 0.00100474, 0.0232279, 0.994819)
+bones/51/rotation = Quaternion(0.00778476, 0.041349, 0.180915, 0.982598)
+bones/52/rotation = Quaternion(0.108314, 0.00259697, 0.0218097, 0.993874)
+bones/53/rotation = Quaternion(-0.00236343, -0.00121159, 0.0116741, 0.999928)
+bones/55/rotation = Quaternion(0.234396, 0.59149, 0.729134, -0.252116)
+bones/56/rotation = Quaternion(-0.657344, 0.0353629, -0.0715094, 0.749357)
+bones/57/rotation = Quaternion(0.54402, 0.0537574, -0.163645, 0.821202)
+bones/58/rotation = Quaternion(0.246605, -0.174768, -0.0221502, 0.95297)
+bones/60/rotation = Quaternion(-0.251243, 0.598304, 0.740806, 0.173539)
+bones/61/rotation = Quaternion(-0.717356, 0.162103, -0.0444125, 0.676129)
+bones/62/rotation = Quaternion(0.767402, 0.019312, 0.228643, 0.598701)
+bones/63/rotation = Quaternion(0.579343, 0.0426726, -0.0575728, 0.811927)
+
+[node name="FBHead_001" parent="enemy/crawly/Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00590411, 0)
+
+[node name="runningSound" type="AudioStreamPlayer3D" parent="enemy"]
+stream = ExtResource("50_o6kod")
+
+[node name="laughingSound" type="AudioStreamPlayer3D" parent="enemy"]
+stream = ExtResource("31_sddxn")
+
+[connection signal="crawly" from="." to="enemy" method="_on_main_crawly"]
 [connection signal="shake" from="." to="player/CharacterBody3D/Camera3D" method="_on_main_shake"]
 [connection signal="baby_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_baby_sig"]
 [connection signal="chib_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_chib_sig"]
 
 [editable path="player"]
 [editable path="babyrun"]
+[editable path="enemy/crawly"]
