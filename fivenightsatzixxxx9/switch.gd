@@ -14,7 +14,7 @@ signal shake
 @onready var flash = $desk/egg/flash
 @onready var chiburashka = $wardrobe/chiburashka
 @onready var chiburashka_scary = $wardrobe/chiburashka/chiburashka_scary
-
+@onready var enemy = $enemy
 @onready var babyrun_sound = $babyrun/runningSound
 @onready var babyjump_sound = $babyrun/jumpscareSound
 @onready var static_sound = $static
@@ -81,8 +81,19 @@ func level_baby_lose() -> void:
 
 func level_crawly() -> void:
 	emit_signal("crawly", randi_range(0, 1))
+	await get_tree().create_timer(4).timeout
+	if !enemy.visible:
+		level_crawly_lose()
+		
+func level_crawly_lose() -> void:
+	enemy.position = Vector3(-1.406, 0.406, -0.496)
+	enemy.rotation_degrees = Vector3(10.1, 95.2, -1.5)
+	enemy.scale = Vector3(650, 650, 650)
+	enemy.visible = true
+	await get_tree().create_timer(10).timeout
+	jumpscare()
 
-# Makes baby appear or disappear
+# Makes character appear or disappear with a light flicker
 func move_character(character):
 	bulb.visible = false
 	await get_tree().create_timer(0.3).timeout

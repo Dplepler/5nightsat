@@ -45,7 +45,8 @@ func _on_timer_timeout():
 	# for random sound events
 	if flashes.size() < index and index <= 45 and mutex.try_lock():
 		sounds[randi_range(0, sounds.size() - 1)].play()
-	
+		mutex.unlock()
+		
 	if index <= flashes.size() - 1 and images_in_current_flash < IMAGES_IN_FLASH and mutex.try_lock():
 		chance_denominator = 40
 		

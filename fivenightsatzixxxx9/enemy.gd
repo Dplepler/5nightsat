@@ -10,19 +10,24 @@ var type: int # type of movement (run, crawl)
 var move: bool = false
 var move_begin: bool = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _ready() -> void:
+	var anim = crawly_animation.get_animation("running")
+	anim.loop_mode = (Animation.LOOP_LINEAR)
+	
 func _process(delta: float) -> void:
-	if position.distance_to(player.position) <= 2: # lose
+	if position.distance_to(player.position) <= 1.5: # lose, TODO: should change to: if enemy didnt die after 4 seconds (logic will be implemented in switch)
 		crawly_animation.stop()
 		running_sound.stop()
+		visible = false
+		move = false
 		
 	if move:  # Move towards the player if it's not within stop distance
 		if move_begin:
 			move_begin = false
 			
 			running_sound.play()
-			laughing_sound.play()	
-			crawly_animation.play("running" if type else "crawling") # This is actually the running animation lol
+			laughing_sound.play()
+			crawly_animation.play("running" if type else "crawling") # Animations names are opposites lol
 		
 		[run, crawl][type].call()	
 		move_and_slide()
@@ -32,7 +37,6 @@ func run() -> void:
 	var direction_to_player = (player.global_transform.origin - global_transform.origin).normalized()
 		
 	look_at(player.position, Vector3.UP)
-			
 	velocity = direction_to_player * SPEED
 
 func crawl() -> void:
