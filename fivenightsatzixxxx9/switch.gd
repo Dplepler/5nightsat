@@ -26,22 +26,52 @@ signal shake(strength: float)
 
 @onready var player = $player/CharacterBody3D
 
+var baby_inprogress = false
+var chiburashka_inprogress = false
+var crawly_inprogress = false
+
 var chib_pressed: bool = false
 var flash_pressed: bool = false
 var egg_flicker_amount = 0
 var enemy_killed: bool = false
+var game : bool = true
 
 const JUMPSCARE_DURATION = 2
 const DEFAULT_SHAKE = 0.7
 
 func _ready() -> void:
-	await get_tree().create_timer(1).timeout 
-	#level_baby()
-	#level_chiburashka()
-	level_crawly()
+	
+	level_baby()
 	await get_tree().create_timer(64).timeout # wait for intro
+	
+	#scheduler()
+	
+func scheduler() -> void:
+	var level_chance = 20
+	var time_elapsed = 0
+	var laps = 0
+	var levels = [level_baby, level_chiburashka, level_crawly]
+	while game:
+		await get_tree().create_timer(1).timeout # wait for intro
+		time_elapsed += 1
+		if 1 == randi_range(1, level_chance):
+			levels[randi_range(0, levels.size() - 1)].call()
+		if time_elapsed >= 40:
+			level_chance -= 2
+			time_elapsed = 0
+			laps += 1
+		
+		if laps == 8:
+			win()
+	
+func win() -> void:
+	get_tree().quit()
 
 func level_baby() -> void:
+	if baby_inprogress:
+		return
+	baby_inprogress = true
+	
 	move_character(babyrun)
 	static_sound.play()
 	
@@ -54,7 +84,8 @@ func level_baby() -> void:
 		level_baby_lose()
 	else:
 		move_character(babyrun)
-		
+		baby_inprogress = false
+	
 func level_baby_lose() -> void:
 	babyrun.visible = false
 	shutdown()
@@ -84,10 +115,16 @@ func level_baby_lose() -> void:
 	jumpscare()
 
 func level_crawly() -> void:
+	if crawly_inprogress:
+		return
+	crawly_inprogress = true
+			
 	emit_signal("crawly", randi_range(0, 1))
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(4.5).timeout
 	if !enemy_killed:
 		level_crawly_lose()
+	else:
+		crawly_inprogress = false
 		
 func level_crawly_lose() -> void:
 	enemy.get_parent().position = Vector3(-1, 1.8, -0.615)
@@ -113,6 +150,10 @@ func move_character(character):
 	bulb.visible = true
 
 func level_chiburashka() -> void:
+	if chiburashka_inprogress:
+		return
+	chiburashka_inprogress = true
+	
 	var children = chiburashka_sounds.get_children()
 	var index = randi_range(0, children.size() - 1)
 	
@@ -124,10 +165,16 @@ func level_chiburashka() -> void:
 	
 	if !chib_pressed:
 		level_chiburashka_lose()
+	else:
+		chiburashka_inprogress = false
 
 func level_chiburashka_lose() -> void:
 	move_character(chiburashka)
 	chiburashka_laugh_sound.play()
+	
+	await get_tree().create_timer(randf_range(1, 3)).timeout
+	shutdown()
+	
 	await get_tree().create_timer(randf_range(1, 20)).timeout # Chiburashka will jump randomly
 	
 	static_sound.play()

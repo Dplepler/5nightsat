@@ -1,9 +1,12 @@
 extends Node3D
+
+signal kill_crawly
+
 @onready var camera = $".."
 @onready var enemy = $"../../../../crawly/enemy"
 @onready var sound = $laserSound
 
-signal kill_crawly
+const WEAPON_ANIMATION_TIME = 0.4
 
 func _process(delta):
 	if !visible:
@@ -23,7 +26,15 @@ func _process(delta):
 	if result and enemy.get_instance_id() == result["collider"].get_instance_id():
 		sound.stop()
 		emit_signal("kill_crawly")
+		slide_weapon()
+		await get_tree().create_timer(WEAPON_ANIMATION_TIME).timeout
+		visible = false
 
 func _on_main_crawly(type_movement: int) -> void:
+	slide_weapon()
 	visible = true
 	sound.play()
+
+func slide_weapon() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position:z", 0.423 if visible else -0.64 , WEAPON_ANIMATION_TIME).set_ease(Tween.EASE_IN)
