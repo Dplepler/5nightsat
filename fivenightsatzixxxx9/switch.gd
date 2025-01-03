@@ -2,7 +2,7 @@ extends Node3D
 
 signal crawly(type_movement: int)
 signal baby_die
-signal shake
+signal shake(strength: float)
 
 @onready var guitar = $wardrobe/guitar_hanger5/guitar
 @onready var baby = $wardrobe/guitar_hanger5/baby0
@@ -14,21 +14,25 @@ signal shake
 @onready var flash = $desk/egg/flash
 @onready var chiburashka = $wardrobe/chiburashka
 @onready var chiburashka_scary = $wardrobe/chiburashka/chiburashka_scary
-@onready var enemy = $enemy
+@onready var enemy = $crawly/enemy
+@onready var enemy_animation = $crawly/enemy/crawly/AnimationPlayer
 @onready var babyrun_sound = $babyrun/runningSound
 @onready var babyjump_sound = $babyrun/jumpscareSound
 @onready var static_sound = $static
 @onready var shutdown_sound = $ceiling/lightbulb/shutdown
 @onready var chiburashka_sounds = $wardrobe/chiburashka/AudioListener3D
 @onready var chiburashka_laugh_sound = $wardrobe/chiburashka/jumpscare_sound
+@onready var enemy_scare_sound = $crawly/enemy/scareSound
 
 @onready var player = $player/CharacterBody3D
 
 var chib_pressed: bool = false
 var flash_pressed: bool = false
 var egg_flicker_amount = 0
+var enemy_killed: bool = false
 
 const JUMPSCARE_DURATION = 2
+const DEFAULT_SHAKE = 0.7
 
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout 
@@ -74,23 +78,31 @@ func level_baby_lose() -> void:
 	babyrun.rotation_degrees = Vector3(-2, -91.4, 1.3)
 	babyrun_head.visible = true
 	
-	emit_signal("shake")
+	emit_signal("shake", DEFAULT_SHAKE)
 	await get_tree().create_timer(JUMPSCARE_DURATION).timeout
-	emit_signal("shake")
+	emit_signal("shake", DEFAULT_SHAKE)
 	jumpscare()
 
 func level_crawly() -> void:
 	emit_signal("crawly", randi_range(0, 1))
 	await get_tree().create_timer(4).timeout
-	if !enemy.visible:
+	if !enemy_killed:
 		level_crawly_lose()
 		
 func level_crawly_lose() -> void:
-	enemy.position = Vector3(-1.406, 0.406, -0.496)
-	enemy.rotation_degrees = Vector3(10.1, 95.2, -1.5)
+	enemy.get_parent().position = Vector3(-1, 1.8, -0.615)
+	enemy.get_parent().rotation_degrees = Vector3(0, 0, 0)
+	enemy.position = Vector3(0, 0, 0)
+	enemy.rotation_degrees = Vector3(73, 92, -1.2)
 	enemy.scale = Vector3(650, 650, 650)
+	
+	static_sound.play()
+	enemy_scare_sound.play()
+	enemy_animation.set_current_animation("running")
+	turn_egg()
 	enemy.visible = true
-	await get_tree().create_timer(10).timeout
+	emit_signal("shake", 0.2)
+	await get_tree().create_timer(4).timeout
 	jumpscare()
 
 # Makes character appear or disappear with a light flicker
@@ -124,9 +136,9 @@ func level_chiburashka_lose() -> void:
 	chiburashka_scary.visible = true
 	turn_egg()
 	
-	emit_signal("shake")
+	emit_signal("shake", DEFAULT_SHAKE)
 	await get_tree().create_timer(JUMPSCARE_DURATION).timeout
-	emit_signal("shake")
+	emit_signal("shake", DEFAULT_SHAKE)
 	
 	static_sound.stop()
 	chiburashka_laugh_sound.stop()
@@ -179,3 +191,6 @@ func _create_promise(promise_sig : Signal):
 
 func jumpscare():
 	get_tree().quit()
+
+func _on_weapon_kill_crawly() -> void:
+	enemy_killed = true

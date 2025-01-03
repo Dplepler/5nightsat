@@ -77,6 +77,7 @@ func _process(delta: float) -> void:
 		randf_range(-shake_intensity, shake_intensity),
 		randf_range(-shake_intensity, shake_intensity))
 	
-func _on_main_shake() -> void:
+func _on_main_shake(strength: float) -> void:
 	global_transform.origin = original_position
+	shake_intensity = strength
 	shake_cam = !shake_cam

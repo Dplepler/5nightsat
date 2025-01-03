@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=82 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Script" path="res://switch.gd" id="1_qgbxk"]
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
@@ -51,6 +51,7 @@
 [ext_resource type="PackedScene" uid="uid://b66fjqjnn4ahc" path="res://assets/wardrobe/wardrobe5.glb" id="36_sjta6"]
 [ext_resource type="PackedScene" uid="uid://drs03xqahc77r" path="res://assets/laser_device/laser.glb" id="36_xg5ab"]
 [ext_resource type="AudioStream" uid="uid://cdjy4jy1mgi24" path="res://assets/sounds/intro.mp3" id="37_voqax"]
+[ext_resource type="AudioStream" uid="uid://dnvhnv4sbqd3a" path="res://assets/sounds/laser.mp3" id="38_5uha7"]
 [ext_resource type="AudioStream" uid="uid://8xehiyr57tf4" path="res://assets/sounds/shutdown.mp3" id="38_6eatn"]
 [ext_resource type="PackedScene" uid="uid://cf25wuh3rvwxy" path="res://assets/electric_guitar/guitar.glb" id="38_35lig"]
 [ext_resource type="Script" path="res://audio_stream_player.gd" id="38_w06ng"]
@@ -62,6 +63,8 @@
 [ext_resource type="Script" path="res://enemy.gd" id="59_n6ahx"]
 [ext_resource type="PackedScene" uid="uid://b7et5h4xmagwy" path="res://assets/vent/scene.gltf" id="59_nfi5g"]
 [ext_resource type="PackedScene" uid="uid://smdahv2snnaa" path="res://assets/weapon/scene.gltf" id="60_5y6eq"]
+[ext_resource type="AudioStream" uid="uid://c8upjuj424l4n" path="res://assets/sounds/poof.mp3" id="63_8epbh"]
+[ext_resource type="AudioStream" uid="uid://2sg1t18kog6b" path="res://assets/sounds/3.mp3" id="65_d6u6i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
 size = Vector3(13.5, 0.05, 10)
@@ -104,7 +107,9 @@ size = Vector3(1.87036, 1.65408, 1)
 ambient_light_source = 2
 tonemap_exposure = 2.0
 fog_light_color = Color(0, 0, 0, 1)
-volumetric_fog_albedo = Color(0.670099, 0.545013, 0.521735, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_length = 5.0
 adjustment_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7tfj"]
@@ -124,6 +129,10 @@ size = Vector3(4.5, 28, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mit4x"]
 radius = 0.001
 height = 0.005
+
+[sub_resource type="FogMaterial" id="FogMaterial_4nlso"]
+density = 8.0
+emission = Color(0.68101, 0.68101, 0.68101, 1)
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_qgbxk")
@@ -262,6 +271,7 @@ transform = Transform3D(-0.07, 0, -1.50996e-09, 0, 0.04, 0, 1.05697e-08, 0, -0.0
 
 [node name="board" parent="shelf" instance=ExtResource("11_cvvih")]
 transform = Transform3D(-2.14286, 1.29857e-07, -6.14936e-07, -4.55603e-07, -3.66044, 0.814651, -4.00428e-06, 3.25861, 14.6418, -1.79687, 40.6035, 63.8647)
+visible = false
 
 [node name="tnt" parent="shelf" instance=ExtResource("12_ywe1f")]
 transform = Transform3D(-14.2857, 0, 2.15708e-06, 0, 25, 0, -1.50996e-05, 0, -100, -22.2485, 106.317, 3.8812)
@@ -288,7 +298,10 @@ transform = Transform3D(-7.57648, 6.16576e-08, -0.581149, 0.0646331, 7.45531, -0
 transform = Transform3D(0.0582668, 0.632188, 13.3182, -0.938907, 13.2855, -0.626527, -13.3001, -0.935104, 0.102575, 1.17432, 9.74856, -12.6268)
 
 [node name="player" parent="." instance=ExtResource("24_rryci")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.91481, 1.37026, -0.519722)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.91481, 2.25094, -0.519722)
+
+[node name="CharacterBody3D" parent="player" index="0"]
+collision_mask = 0
 
 [node name="sound1" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D" index="8"]
 stream = ExtResource("29_4ys1k")
@@ -306,12 +319,16 @@ stream = ExtResource("32_aa88q")
 stream = ExtResource("33_k787g")
 
 [node name="weapon" parent="player/CharacterBody3D/Camera3D" index="13" instance=ExtResource("60_5y6eq")]
-transform = Transform3D(-3.9999, 0, 0.0278549, 0, 4, 0, -0.0278549, 0, -3.9999, -0.0819275, -0.900322, -0.637941)
+transform = Transform3D(-3.9999, 1.86739e-08, 0.0278549, 0.00297498, 3.97712, 0.427198, -0.0276956, 0.427208, -3.97702, -0.0819275, -0.900322, -0.637941)
 visible = false
 script = ExtResource("36_74tk1")
 
 [node name="laser" parent="player/CharacterBody3D/Camera3D/weapon" instance=ExtResource("36_xg5ab")]
-transform = Transform3D(-0.745824, -0.029315, -0.0776773, -0.0790375, 0.25227, 0.73508, -0.00130208, 1.47834, -0.126977, 0.000242606, -0.0185483, 0.0517443)
+transform = Transform3D(-0.745672, -0.0301884, -0.0790439, -0.0777991, 0.647038, 0.672148, 0.0205691, 1.35293, -0.323218, 0.000215083, -0.0773478, 0.0477979)
+
+[node name="laserSound" type="AudioStreamPlayer3D" parent="player/CharacterBody3D/Camera3D/weapon"]
+stream = ExtResource("38_5uha7")
+volume_db = -20.0
 
 [node name="wardrobe" parent="." instance=ExtResource("25_vp37e")]
 transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, 3.66789, 0.0249996, -4.24087)
@@ -484,18 +501,18 @@ skeleton = NodePath("../door")
 [node name="door" parent="upperWall" instance=ExtResource("36_oib43")]
 transform = Transform3D(-0.547927, 0, 0.133844, 0, 1, 0, -0.836526, 0, -0.0876683, -4.9178, -24.3318, -1.6855)
 
-[node name="enemy" type="CharacterBody3D" parent="."]
-transform = Transform3D(-38.1036, 69.1478, 392.131, -10.4961, 393.611, -70.4287, -398.043, -16.9986, -35.6805, -1.40625, 0.405643, -0.495756)
+[node name="crawly" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85699, 0.94076, -0.615)
+
+[node name="enemy" type="CharacterBody3D" parent="crawly"]
+transform = Transform3D(-28.5671, 552.189, 341.718, -9.64292, 341.65, -552.885, -649.3, -29.3684, -6.82344, 0, 0, 0)
+collision_mask = 0
 script = ExtResource("59_n6ahx")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="enemy"]
-transform = Transform3D(0.999999, 0, -1.78814e-07, 0, 1, 0, 1.78814e-07, 0, 0.999999, -0.000161401, 0.00257125, 9.71891e-05)
-shape = SubResource("CapsuleShape3D_mit4x")
+[node name="crawly" parent="crawly/enemy" instance=ExtResource("57_aftrf")]
+transform = Transform3D(-0.999306, 0.0116111, -0.0353819, 0.0279697, 0.86131, -0.507309, 0.0245844, -0.507947, -0.861037, 0, 0, 0)
 
-[node name="crawly" parent="enemy" instance=ExtResource("57_aftrf")]
-transform = Transform3D(-0.99838, 0, -0.0568846, 0, 1, 0, 0.0568846, 0, -0.99838, 0, 0, 0)
-
-[node name="Skeleton3D" parent="enemy/crawly/Armature" index="0"]
+[node name="Skeleton3D" parent="crawly/enemy/crawly/Armature" index="0"]
 bones/0/position = Vector3(0.00134331, -0.00322784, -0.234152)
 bones/0/rotation = Quaternion(-0.53699, -0.0947248, 0.0273151, 0.837808)
 bones/1/rotation = Quaternion(0.0363378, 0.0720262, 0.0753027, 0.993892)
@@ -550,20 +567,44 @@ bones/61/rotation = Quaternion(-0.528718, 0.0843239, -0.0166868, 0.844433)
 bones/62/rotation = Quaternion(0.766855, -0.0947516, 0.00828154, 0.634734)
 bones/63/rotation = Quaternion(0.359653, 0.0894931, -0.0370339, 0.928046)
 
-[node name="FBHead_001" parent="enemy/crawly/Armature/Skeleton3D" index="0"]
+[node name="FBHead_001" parent="crawly/enemy/crawly/Armature/Skeleton3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00590411, 0)
 
-[node name="runningSound" type="AudioStreamPlayer3D" parent="enemy"]
+[node name="runningSound" type="AudioStreamPlayer3D" parent="crawly/enemy"]
 stream = ExtResource("50_o6kod")
 
-[node name="laughingSound" type="AudioStreamPlayer3D" parent="enemy"]
+[node name="laughingSound" type="AudioStreamPlayer3D" parent="crawly/enemy"]
 stream = ExtResource("31_sddxn")
 
-[connection signal="crawly" from="." to="enemy" method="_on_main_crawly"]
+[node name="enemyBody" type="CollisionShape3D" parent="crawly/enemy"]
+transform = Transform3D(1.2, 7.45058e-09, -1.86265e-07, -1.49012e-08, 1.2, -4.98258e-08, 2.16067e-07, 2.8871e-08, 1.2, -9.71705e-05, 0.0022514, -0.000179937)
+shape = SubResource("CapsuleShape3D_mit4x")
+
+[node name="poofSound" type="AudioStreamPlayer3D" parent="crawly/enemy"]
+stream = ExtResource("63_8epbh")
+
+[node name="scareSound" type="AudioStreamPlayer3D" parent="crawly/enemy"]
+stream = ExtResource("65_d6u6i")
+volume_db = 80.0
+unit_size = 20.23
+
+[node name="FogVolume" type="FogVolume" parent="crawly"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.733197, 1.21779, -0.170102)
+size = Vector3(3, 3, 3)
+shape = 0
+material = SubResource("FogMaterial_4nlso")
+
+[node name="laser" parent="crawly" instance=ExtResource("36_xg5ab")]
+transform = Transform3D(-0.745672, -0.0301884, -0.0790439, -0.0777991, 0.647038, 0.672148, 0.0205691, 1.35293, -0.323218, 0.000215083, -0.0773478, 0.0477979)
+
+[connection signal="crawly" from="." to="player/CharacterBody3D/Camera3D/weapon" method="_on_main_crawly"]
+[connection signal="crawly" from="." to="crawly/enemy" method="_on_main_crawly"]
 [connection signal="shake" from="." to="player/CharacterBody3D/Camera3D" method="_on_main_shake"]
 [connection signal="baby_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_baby_sig"]
 [connection signal="chib_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_chib_sig"]
+[connection signal="kill_crawly" from="player/CharacterBody3D/Camera3D/weapon" to="." method="_on_weapon_kill_crawly"]
+[connection signal="kill_crawly" from="player/CharacterBody3D/Camera3D/weapon" to="crawly/enemy" method="_on_weapon_kill_crawly"]
 
 [editable path="player"]
 [editable path="babyrun"]
-[editable path="enemy/crawly"]
+[editable path="crawly/enemy/crawly"]
