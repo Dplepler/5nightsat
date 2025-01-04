@@ -439,7 +439,7 @@ stream = ExtResource("37_voqax")
 script = ExtResource("38_w06ng")
 
 [node name="babyrun" parent="." instance=ExtResource("48_ktpui")]
-transform = Transform3D(-4.32693, -2.51788, -9.79479, -0.456561, 10.6914, -2.54668, 10.1029, -0.595219, -4.31005, 3.46941, -3.1686, 0.246078)
+transform = Transform3D(-6.0074, -1.91079, -9.01443, -0.187163, 10.784, -2.16115, 9.21278, -1.02689, -5.92195, 2.7013, -3.1686, 1.07773)
 visible = false
 
 [node name="FBHead" parent="babyrun/Armature/Object_7" index="0"]
@@ -608,6 +608,21 @@ material = SubResource("FogMaterial_4nlso")
 [node name="laser" parent="crawly" instance=ExtResource("36_xg5ab")]
 transform = Transform3D(-0.745672, -0.0301884, -0.0790439, -0.0777991, 0.647038, 0.672148, 0.0205691, 1.35293, -0.323218, 0.000215083, -0.0773478, 0.0477979)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -247.0
+offset_top = 53.0
+offset_right = -86.0
+offset_bottom = 111.0
+grow_horizontal = 0
+scale = Vector2(1.3, 1.3)
+text = "סתום ליונתהן תפה"
+
 [connection signal="crawly" from="." to="player/CharacterBody3D/Camera3D/weapon" method="_on_main_crawly"]
 [connection signal="crawly" from="." to="crawly/enemy" method="_on_main_crawly"]
 [connection signal="shake" from="." to="player/CharacterBody3D/Camera3D" method="_on_main_shake"]
@@ -615,6 +630,7 @@ transform = Transform3D(-0.745672, -0.0301884, -0.0790439, -0.0777991, 0.647038,
 [connection signal="chib_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_chib_sig"]
 [connection signal="kill_crawly" from="player/CharacterBody3D/Camera3D/weapon" to="." method="_on_weapon_kill_crawly"]
 [connection signal="kill_crawly" from="player/CharacterBody3D/Camera3D/weapon" to="crawly/enemy" method="_on_weapon_kill_crawly"]
+[connection signal="pressed" from="CanvasLayer/Button" to="introSound/AudioStreamPlayer" method="_on_button_pressed"]
 
 [editable path="player"]
 [editable path="babyrun"]

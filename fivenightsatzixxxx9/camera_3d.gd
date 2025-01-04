@@ -18,12 +18,13 @@ extends Camera3D
 @onready var sound5 = $sound5
 @onready var sounds = [sound1, sound2, sound3, sound4, sound5]
 
+@onready var button = $"../../../CanvasLayer/Button"
+
 const FLASH_DELAY = 0.2
 const DEFAULT_CHANCE = 5000
 const IMAGES_IN_FLASH = 5
 const SOUND_AMOUNT = 5
 
-var mutex : Mutex = Mutex.new()
 var timer : Timer = Timer.new()
 var chance_denominator : int = DEFAULT_CHANCE
 var images_in_current_flash : int = 0
@@ -31,6 +32,9 @@ var last_sprite
 var shake_cam : bool = false
 var original_position = Vector3()
 var shake_intensity: float = 0.7
+var inprogress: bool = false
+
+var promise = preload("res://promise_utils.gd")
 
 func _on_timer_timeout():
 	if last_sprite and last_sprite.visible:
@@ -43,11 +47,11 @@ func _on_timer_timeout():
 	var index = randi_range(0, chance_denominator) # number of flashes / denominator chance for an image to appear
 	
 	# for random sound events
-	if flashes.size() < index and index <= 45 and mutex.try_lock():
+	if flashes.size() < index and index <= 45:
 		sounds[randi_range(0, sounds.size() - 1)].play()
-		mutex.unlock()
 		
-	if index <= flashes.size() - 1 and images_in_current_flash < IMAGES_IN_FLASH and mutex.try_lock():
+	if index <= flashes.size() - 1 and images_in_current_flash < IMAGES_IN_FLASH and !inprogress:
+		inprogress = true
 		chance_denominator = 40
 		
 		last_sprite = flashes[index]
@@ -57,8 +61,8 @@ func _on_timer_timeout():
 		if 1 == images_in_current_flash:
 			scary_sound.play()
 		
-		mutex.unlock()
-	
+		inprogress = false
+		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	original_position = global_transform.origin
@@ -67,6 +71,7 @@ func _ready() -> void:
 	timer.autostart = true
 	timer.connect("timeout", _on_timer_timeout)
 	
+	await Promise.any([promise._create_promise(get_tree().create_timer(62).timeout), promise._create_promise(button.pressed)]).wait()
 	await get_tree().create_timer(62).timeout # Wait for intro
 	add_child(timer)
 

@@ -23,8 +23,11 @@ signal shake(strength: float)
 @onready var chiburashka_sounds = $wardrobe/chiburashka/AudioListener3D
 @onready var chiburashka_laugh_sound = $wardrobe/chiburashka/jumpscare_sound
 @onready var enemy_scare_sound = $crawly/enemy/scareSound
+@onready var button = $CanvasLayer/Button
 
 @onready var player = $player/CharacterBody3D
+
+var promise = preload("res://promise_utils.gd")
 
 var baby_inprogress = false
 var chiburashka_inprogress = false
@@ -38,13 +41,15 @@ var game : bool = true
 
 const JUMPSCARE_DURATION = 2
 const DEFAULT_SHAKE = 0.7
+const HARD_MODE_LAP = 6
 
 func _ready() -> void:
-	
-	level_baby()
-	await get_tree().create_timer(64).timeout # wait for intro
-	
-	#scheduler()
+	# intro
+	await get_tree().create_timer(2).timeout
+	button.visible = true
+	await Promise.any([promise._create_promise(get_tree().create_timer(62).timeout), promise._create_promise(button.pressed)]).wait()
+	button.visible = false
+	scheduler()
 	
 func scheduler() -> void:
 	var level_chance = 20
@@ -56,12 +61,11 @@ func scheduler() -> void:
 		time_elapsed += 1
 		if 1 == randi_range(1, level_chance):
 			levels[randi_range(0, levels.size() - 1)].call()
-		if time_elapsed >= 40:
-			level_chance -= 2
+		if 40 <= time_elapsed:
+			level_chance = 2 if laps >= HARD_MODE_LAP else level_chance - 3
 			time_elapsed = 0
 			laps += 1
-		
-		if laps == 8:
+		if 9 == laps:
 			win()
 	
 func win() -> void:
@@ -76,7 +80,7 @@ func level_baby() -> void:
 	static_sound.play()
 	
 	flash.visible = true
-	await Promise.any([_create_promise(get_tree().create_timer(2).timeout), _create_promise(baby_die)]).wait()
+	await Promise.any([promise._create_promise(get_tree().create_timer(2).timeout), promise._create_promise(baby_die)]).wait()
 	static_sound.stop()
 	flash.visible = false
 	
@@ -160,7 +164,7 @@ func level_chiburashka() -> void:
 	chib_pressed = false
 	
 	children[index].play()
-	await Promise.any([_create_promise(get_tree().create_timer(children[index].stream.get_length()).timeout), _create_promise(player.chib_sig)]).wait()
+	await Promise.any([promise._create_promise(get_tree().create_timer(children[index].stream.get_length()).timeout), promise._create_promise(player.chib_sig)]).wait()
 	children[index].stop()
 	
 	if !chib_pressed:
@@ -228,13 +232,6 @@ func _on_character_body_3d_baby_sig() -> void:
 		egg_flicker_amount = 0	
 		flash_pressed = true
 		emit_signal("baby_die")
-	
-func _create_promise(promise_sig : Signal):
-	return Promise.new(
-		func(resolve: Callable, reject: Callable):
-		await promise_sig
-		resolve.call()
-	)
 
 func jumpscare():
 	get_tree().quit()
