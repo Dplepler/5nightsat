@@ -21,10 +21,14 @@ signal shake(strength: float)
 @onready var static_sound = $static
 @onready var shutdown_sound = $ceiling/lightbulb/shutdown
 @onready var chiburashka_sounds = $wardrobe/chiburashka/AudioListener3D
-@onready var chiburashka_laugh_sound = $wardrobe/chiburashka/jumpscare_sound
+@onready var chiburashka_scare_sound = $wardrobe/chiburashka/jumpscare_sound
+@onready var chiburashka_laugh_sound = $wardrobe/chiburashka/laugh
 @onready var enemy_scare_sound = $crawly/enemy/scareSound
 @onready var button = $CanvasLayer/Button
-
+@onready var monitor_scares = $desk/pc/monitor1/scares
+@onready var momo = $momo
+@onready var momo_laugh = $desk/pc/monitor1/laugh
+@onready var momo_scream = $momo/scream
 @onready var player = $player/CharacterBody3D
 
 var promise = preload("res://promise_utils.gd")
@@ -32,13 +36,15 @@ var promise = preload("res://promise_utils.gd")
 var baby_inprogress = false
 var chiburashka_inprogress = false
 var crawly_inprogress = false
+var monitor_inprogress = false
 
 var chib_pressed: bool = false
 var flash_pressed: bool = false
+var monitor_pressed: bool = false
+
 var egg_flicker_amount = 0
 var enemy_killed: bool = false
 var game : bool = true
-
 const JUMPSCARE_DURATION = 2
 const DEFAULT_SHAKE = 0.7
 const HARD_MODE_LAP = 6
@@ -49,15 +55,16 @@ func _ready() -> void:
 	button.visible = true
 	await Promise.any([promise._create_promise(get_tree().create_timer(62).timeout), promise._create_promise(button.pressed)]).wait()
 	button.visible = false
+
 	scheduler()
 	
 func scheduler() -> void:
 	var level_chance = 20
 	var time_elapsed = 0
 	var laps = 0
-	var levels = [level_baby, level_chiburashka, level_crawly]
+	var levels = [level_baby, level_chiburashka, level_crawly, level_monitor]
 	while game:
-		await get_tree().create_timer(1).timeout # wait for intro
+		await get_tree().create_timer(1).timeout
 		time_elapsed += 1
 		if 1 == randi_range(1, level_chance):
 			levels[randi_range(0, levels.size() - 1)].call()
@@ -70,6 +77,31 @@ func scheduler() -> void:
 	
 func win() -> void:
 	get_tree().quit()
+
+func level_monitor() -> void:
+	if monitor_inprogress:
+		return
+	monitor_inprogress = true
+	monitor_pressed = false
+	monitor_scares.visible = true
+	
+	momo_laugh.play()
+	await Promise.any([promise._create_promise(get_tree().create_timer(2.5).timeout), promise._create_promise(player.scares_sig)]).wait()
+	momo_laugh.stop()
+	
+	if !monitor_pressed:
+		level_monitor_lose()
+	else:
+		monitor_scares.visible = false
+	monitor_inprogress = false	
+
+func level_monitor_lose() -> void:
+	await get_tree().create_timer(randi_range(1, 20)).timeout
+	momo.visible = true
+	momo_scream.play()
+	emit_signal("shake", DEFAULT_SHAKE)
+	await get_tree().create_timer(2.5).timeout
+	jumpscare()
 
 func level_baby() -> void:
 	if baby_inprogress:
@@ -170,6 +202,7 @@ func level_chiburashka() -> void:
 	if !chib_pressed:
 		level_chiburashka_lose()
 	else:
+		await get_tree().create_timer(0.5).timeout # For race conditions, also its okay cause a level can only appear after 1 second
 		chiburashka_inprogress = false
 
 func level_chiburashka_lose() -> void:
@@ -181,12 +214,10 @@ func level_chiburashka_lose() -> void:
 	
 	await get_tree().create_timer(randf_range(1, 20)).timeout # Chiburashka will jump randomly
 	
-	static_sound.play()
-	
 	chiburashka.visible = true
 	chiburashka_scary.visible = true
 	turn_egg()
-	
+	chiburashka_scare_sound.play()
 	emit_signal("shake", DEFAULT_SHAKE)
 	await get_tree().create_timer(JUMPSCARE_DURATION).timeout
 	emit_signal("shake", DEFAULT_SHAKE)
@@ -209,14 +240,14 @@ func shutdown() -> void:
 func turn_egg() -> void:
 	flash.visible = true
 	flash.get_child(0).visible = true
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
 
 #chib_sig
 func _on_character_body_3d_chib_sig() -> void:
 	chib_pressed = true
+	
+	if !chiburashka_inprogress:
+		chiburashka_inprogress = true
+		level_chiburashka_lose()
 
 #baby_sig
 func _on_character_body_3d_baby_sig() -> void:
@@ -238,3 +269,6 @@ func jumpscare():
 
 func _on_weapon_kill_crawly() -> void:
 	enemy_killed = true
+
+func _on_character_body_3d_scares_sig() -> void:
+	monitor_pressed = true

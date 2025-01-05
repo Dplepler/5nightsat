@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=99 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Script" path="res://switch.gd" id="1_qgbxk"]
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://dj2m4u5wdvwcw" path="res://assets/blanket/scene.gltf" id="15_1ql6h"]
 [ext_resource type="PackedScene" uid="uid://dvf7g6dqpcjs" path="res://assets/cat/scene.gltf" id="16_xjuxd"]
 [ext_resource type="PackedScene" uid="uid://c2d3jhqm3nl0j" path="res://assets/curtains/scene.gltf" id="17_spm1y"]
+[ext_resource type="Texture2D" uid="uid://b3qvteyoskexw" path="res://assets/zix/7.jpg" id="19_et2vm"]
+[ext_resource type="AudioStream" uid="uid://b0ioqs53cvk54" path="res://assets/sounds/laugh.mp3" id="20_64m2u"]
 [ext_resource type="PackedScene" uid="uid://djubvrqg7dtn4" path="res://assets/egg/scene.gltf" id="21_fkd5t"]
 [ext_resource type="PackedScene" uid="uid://dy2dje5ishx4f" path="res://assets/cupcake/scene.gltf" id="22_lq2o7"]
 [ext_resource type="PackedScene" uid="uid://b86ly53bdk40f" path="res://player.tscn" id="24_rryci"]
@@ -55,6 +57,7 @@
 [ext_resource type="AudioStream" uid="uid://8xehiyr57tf4" path="res://assets/sounds/shutdown.mp3" id="38_6eatn"]
 [ext_resource type="PackedScene" uid="uid://cf25wuh3rvwxy" path="res://assets/electric_guitar/guitar.glb" id="38_35lig"]
 [ext_resource type="Script" path="res://audio_stream_player.gd" id="38_w06ng"]
+[ext_resource type="AudioStream" uid="uid://baidefoo45qyo" path="res://assets/sounds/chiburashka_laugh.mp3" id="47_838bk"]
 [ext_resource type="AudioStream" uid="uid://cgafqitgqi5dw" path="res://assets/sounds/babyscaresound.mp3" id="48_2nx1t"]
 [ext_resource type="PackedScene" uid="uid://cr7ni62i6p5e1" path="res://assets/baby_fully_rigged/babyrun3.glb" id="48_ktpui"]
 [ext_resource type="AudioStream" uid="uid://bl4xk8y5oma5t" path="res://assets/sounds/static.mp3" id="49_yjyvy"]
@@ -65,6 +68,9 @@
 [ext_resource type="PackedScene" uid="uid://smdahv2snnaa" path="res://assets/weapon/scene.gltf" id="60_5y6eq"]
 [ext_resource type="AudioStream" uid="uid://c8upjuj424l4n" path="res://assets/sounds/poof.mp3" id="63_8epbh"]
 [ext_resource type="AudioStream" uid="uid://2sg1t18kog6b" path="res://assets/sounds/3.mp3" id="65_d6u6i"]
+[ext_resource type="Shader" path="res://vhs.gdshader" id="66_hkufm"]
+[ext_resource type="PackedScene" uid="uid://ccyt3hb371f3p" path="res://assets/momo/m.gltf" id="68_ht8b7"]
+[ext_resource type="AudioStream" uid="uid://db67c8n202yfy" path="res://assets/sounds/momosound.mp3" id="70_bde40"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
 size = Vector3(13.5, 0.05, 10)
@@ -99,6 +105,42 @@ uv1_offset = Vector3(0.25, -0.145, 0)
 [sub_resource type="BoxMesh" id="BoxMesh_2ppnn"]
 material = SubResource("StandardMaterial3D_qavf4")
 size = Vector3(6.19, 3.56, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jylos"]
+albedo_texture = ExtResource("19_et2vm")
+uv1_scale = Vector3(2.025, 2.025, 2.025)
+uv1_offset = Vector3(0.15, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_76jqu"]
+material = SubResource("StandardMaterial3D_jylos")
+size = Vector3(1760, 1000, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0u7cs"]
+albedo_texture = ExtResource("19_et2vm")
+uv1_scale = Vector3(2.025, 2.025, 2.025)
+uv1_offset = Vector3(0.15, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ffma8"]
+material = SubResource("StandardMaterial3D_0u7cs")
+size = Vector3(1760, 1000, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bx46a"]
+albedo_texture = ExtResource("19_et2vm")
+uv1_scale = Vector3(2.025, 2.025, 2.025)
+uv1_offset = Vector3(0.15, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_652w6"]
+material = SubResource("StandardMaterial3D_bx46a")
+size = Vector3(1760, 1000, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jdpy5"]
+size = Vector3(1760, 1000, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jy4s"]
+size = Vector3(1760, 1000, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bbbk8"]
+size = Vector3(1760, 1000, 100)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8bf8"]
 size = Vector3(1.87036, 1.65408, 1)
@@ -137,6 +179,22 @@ height = 0.005
 density = 8.0
 emission = Color(0.68101, 0.68101, 0.68101, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0awu"]
+shader = ExtResource("66_hkufm")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.1
+shader_parameter/tape_crease_smear = 0.0
+shader_parameter/tape_crease_intensity = 0.0
+shader_parameter/tape_crease_jitter = 0.0
+shader_parameter/tape_crease_speed = -2.0
+shader_parameter/tape_crease_discoloration = 0.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.5
+
 [node name="main" type="Node3D"]
 script = ExtResource("1_qgbxk")
 
@@ -173,13 +231,13 @@ mesh = SubResource("BoxMesh_2223x")
 transform = Transform3D(0.265141, -0.00160007, 0.299496, 0.256916, 0.206793, -0.226341, -0.153929, 0.342394, 0.138101, -0.86642, 1.94699, -6.16517)
 
 [node name="ibanez" parent="wall1" instance=ExtResource("7_srqe3")]
-transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, -3.03104, 4.42937, -4.88644)
+transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, -2.99514, 4.42937, -4.88644)
 
 [node name="sg" parent="wall1" instance=ExtResource("9_cmpbi")]
 transform = Transform3D(2.6, 0, 0, 0, 2.6, 0, 0, 0, 2.6, -0.132628, 3.46639, -4.8728)
 
 [node name="telecaster" parent="wall1" instance=ExtResource("10_3r8cp")]
-transform = Transform3D(0.185, 0, 0, 0, -8.08661e-09, -0.185, 0, 0.185, -8.08661e-09, -1.53669, 4.39181, -6.4646)
+transform = Transform3D(0.185, 0, 0, 0, -8.08661e-09, -0.185, 0, 0.185, -8.08661e-09, -1.55394, 4.39181, -6.4646)
 
 [node name="guitar_hanger" parent="wall1" instance=ExtResource("30_psgjr")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.0604, 3.47431, -5.09035)
@@ -194,7 +252,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0859647, -2.61731)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0859647, -4.07399)
 
 [node name="ibanez2" parent="wall1" instance=ExtResource("11_slcrh")]
-transform = Transform3D(0.175, 0, 0, 0, 0.159243, -0.0725713, 0, 0.0725713, 0.159243, 1.10053, 2.89741, -5.3413)
+transform = Transform3D(0.175, 0, 0, 0, 0.159243, -0.0725713, 0, 0.0725713, 0.159243, 1.08575, 2.89741, -5.3413)
 
 [node name="wall2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
@@ -251,6 +309,40 @@ transform = Transform3D(0.80955, 0, -0.587051, 0, 1, 0, 0.587051, 0, 0.80955, 16
 
 [node name="monitor3" parent="desk/pc/monitor1" instance=ExtResource("6_fvwho")]
 transform = Transform3D(0.543966, 0, 0.839108, 0, 1, 0, -0.839108, 0, 0.543966, -2360.05, 0, -621.347)
+
+[node name="scares" type="StaticBody3D" parent="desk/pc/monitor1"]
+visible = false
+
+[node name="monitor_scare" type="MeshInstance3D" parent="desk/pc/monitor1/scares"]
+transform = Transform3D(0.806476, 0, -0.591267, 0, 0.999996, 0, 0.591267, 0, 0.806476, 337.006, 36.449, 636.531)
+mesh = SubResource("BoxMesh_76jqu")
+skeleton = NodePath("../..")
+
+[node name="monitor_scare3" type="MeshInstance3D" parent="desk/pc/monitor1/scares"]
+transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 1, -1582.64, 25.0247, -30.4141)
+mesh = SubResource("BoxMesh_ffma8")
+skeleton = NodePath("../..")
+
+[node name="monitor_scare2" type="MeshInstance3D" parent="desk/pc/monitor1/scares"]
+transform = Transform3D(0.575405, 0, 0.817869, 0, 0.999998, 0, -0.817869, 0, 0.575405, -3206.94, 29.7961, 709.794)
+mesh = SubResource("BoxMesh_652w6")
+skeleton = NodePath("../..")
+
+[node name="moncol1" type="CollisionShape3D" parent="desk/pc/monitor1/scares"]
+transform = Transform3D(0.820611, 0, -0.571487, 0, 0.999994, 0, 0.571487, 0, 0.820611, 323.35, 30.9204, 680.213)
+shape = SubResource("BoxShape3D_jdpy5")
+
+[node name="moncol2" type="CollisionShape3D" parent="desk/pc/monitor1/scares"]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, -1577.11, 0, 0.467773)
+shape = SubResource("BoxShape3D_5jy4s")
+
+[node name="moncol3" type="CollisionShape3D" parent="desk/pc/monitor1/scares"]
+transform = Transform3D(0.575405, 0, 0.817868, 0, 0.999999, 0, -0.817868, 0, 0.575405, -3201.29, 27.6074, 732.584)
+shape = SubResource("BoxShape3D_bbbk8")
+
+[node name="laugh" type="AudioStreamPlayer3D" parent="desk/pc/monitor1"]
+transform = Transform3D(-771.524, 0, 636.198, 0, 1000, 0, -636.198, 0, -771.524, -174.311, -2090.39, 4966.04)
+stream = ExtResource("20_64m2u")
 
 [node name="keyboardmouse" parent="desk/pc" instance=ExtResource("3_udf51")]
 transform = Transform3D(3.33011, 0, 2.07371, 0, 3.923, 0, -2.07371, 0, 3.33011, 7.87171, 7.19203, 1.71821)
@@ -362,13 +454,16 @@ visible = false
 shape = SubResource("BoxShape3D_d8bf8")
 
 [node name="jumpscare_sound" type="AudioStreamPlayer3D" parent="wardrobe/chiburashka"]
-stream = ExtResource("35_2i7c3")
+stream = ExtResource("47_838bk")
 volume_db = 80.0
 unit_size = 71.61
 
 [node name="chiburashka_scary" parent="wardrobe/chiburashka" instance=ExtResource("36_0fj1x")]
 transform = Transform3D(3.5916, 0, -3.47856, 0, 5, 0, 3.47856, 0, 3.5916, 0.788992, -5.96509, 12.0459)
 visible = false
+
+[node name="laugh" type="AudioStreamPlayer3D" parent="wardrobe/chiburashka"]
+stream = ExtResource("35_2i7c3")
 
 [node name="camel1" parent="wardrobe" instance=ExtResource("28_tojde")]
 transform = Transform3D(0.0074723, 0, -0.00501645, 0, 0.009, 0, 0.00501645, 0, 0.0074723, 1.59269, 0.222233, -1.6994)
@@ -377,7 +472,7 @@ transform = Transform3D(0.0074723, 0, -0.00501645, 0, 0.009, 0, 0.00501645, 0, 0
 transform = Transform3D(-5.46392e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.46392e-08, -0.00347185, 3.30786, 0.825426)
 
 [node name="guitar" parent="wardrobe/guitar_hanger5" instance=ExtResource("38_35lig")]
-transform = Transform3D(-1.08623e-07, 0, -2.485, 0, 2.485, 0, 2.485, 0, -1.08623e-07, -0.192597, 0.347866, -0.00311136)
+transform = Transform3D(-1.08623e-07, 0, -2.485, 0, 2.485, 0, 2.485, 0, -1.08623e-07, -0.222614, 0.347866, -0.00311136)
 
 [node name="baby0" parent="wardrobe/guitar_hanger5" instance=ExtResource("34_mn7fv")]
 transform = Transform3D(-9.79137e-08, 0, -2.24, 0, 2.24, 0, 2.24, 0, -9.79137e-08, -0.169875, 0.695491, -0.0450101)
@@ -610,6 +705,15 @@ transform = Transform3D(-0.745672, -0.0301884, -0.0790439, -0.0777991, 0.647038,
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_d0awu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
 [node name="Button" type="Button" parent="CanvasLayer"]
 visible = false
 anchors_preset = 1
@@ -623,11 +727,20 @@ grow_horizontal = 0
 scale = Vector2(1.3, 1.3)
 text = "סתום ליונתהן תפה"
 
+[node name="momo" parent="." instance=ExtResource("68_ht8b7")]
+transform = Transform3D(-0.00114157, 0, -0.00993462, 0, 0.01, 0, 0.00993462, 0, -0.00114157, 0.0146039, 1.31943, -0.254542)
+visible = false
+
+[node name="scream" type="AudioStreamPlayer3D" parent="momo"]
+transform = Transform3D(100, 0, -2.86102e-06, 0, 100, 0, 2.86102e-06, 0, 100, -1.33514e-05, 1.52588e-05, -1.65701e-05)
+stream = ExtResource("70_bde40")
+
 [connection signal="crawly" from="." to="player/CharacterBody3D/Camera3D/weapon" method="_on_main_crawly"]
 [connection signal="crawly" from="." to="crawly/enemy" method="_on_main_crawly"]
 [connection signal="shake" from="." to="player/CharacterBody3D/Camera3D" method="_on_main_shake"]
 [connection signal="baby_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_baby_sig"]
 [connection signal="chib_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_chib_sig"]
+[connection signal="scares_sig" from="player/CharacterBody3D" to="." method="_on_character_body_3d_scares_sig"]
 [connection signal="kill_crawly" from="player/CharacterBody3D/Camera3D/weapon" to="." method="_on_weapon_kill_crawly"]
 [connection signal="kill_crawly" from="player/CharacterBody3D/Camera3D/weapon" to="crawly/enemy" method="_on_weapon_kill_crawly"]
 [connection signal="pressed" from="CanvasLayer/Button" to="introSound/AudioStreamPlayer" method="_on_button_pressed"]

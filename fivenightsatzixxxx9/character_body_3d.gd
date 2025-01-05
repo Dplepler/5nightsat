@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal chib_sig
+signal scares_sig
 signal baby_sig
 
 @onready var camera = $Camera3D
@@ -25,9 +26,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and MOUSE_BUTTON_LEFT == event.button_index:
 		var result = get_selection()
 		if result and result.collider:
+			print(result.collider)
 			match result.collider.name:
 				"chib":
 					emit_signal("chib_sig")
+				"scares":
+					emit_signal("scares_sig")
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_released("ui_accept"):
 			emit_signal("baby_sig")
