@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://ckhw2bajrc0q7"]
+[gd_scene load_steps=102 format=3 uid="uid://ckhw2bajrc0q7"]
 
 [ext_resource type="Script" path="res://switch.gd" id="1_qgbxk"]
 [ext_resource type="Texture2D" uid="uid://dk8y5d76upvnv" path="res://assets/textures/floor.jpg" id="1_wmq35"]
@@ -66,11 +66,14 @@
 [ext_resource type="Script" path="res://enemy.gd" id="59_n6ahx"]
 [ext_resource type="PackedScene" uid="uid://b7et5h4xmagwy" path="res://assets/vent/scene.gltf" id="59_nfi5g"]
 [ext_resource type="PackedScene" uid="uid://smdahv2snnaa" path="res://assets/weapon/scene.gltf" id="60_5y6eq"]
+[ext_resource type="AudioStream" uid="uid://d1y1n1267gvlr" path="res://assets/sounds/buzz.wav" id="61_hbgdd"]
 [ext_resource type="AudioStream" uid="uid://c8upjuj424l4n" path="res://assets/sounds/poof.mp3" id="63_8epbh"]
+[ext_resource type="AudioStream" uid="uid://ctcld4o2c4hit" path="res://assets/sounds/loud.mp3" id="64_lxfo4"]
 [ext_resource type="AudioStream" uid="uid://2sg1t18kog6b" path="res://assets/sounds/3.mp3" id="65_d6u6i"]
 [ext_resource type="Shader" path="res://vhs.gdshader" id="66_hkufm"]
 [ext_resource type="PackedScene" uid="uid://ccyt3hb371f3p" path="res://assets/momo/m.gltf" id="68_ht8b7"]
 [ext_resource type="AudioStream" uid="uid://db67c8n202yfy" path="res://assets/sounds/momosound.mp3" id="70_bde40"]
+[ext_resource type="Texture2D" uid="uid://q86uf64sl3gt" path="res://assets/noise.png" id="72_icoe8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ywfr"]
 size = Vector3(13.5, 0.05, 10)
@@ -186,14 +189,15 @@ shader_parameter/samples = 2
 shader_parameter/crease_noise = 1.0
 shader_parameter/crease_opacity = 0.5
 shader_parameter/filter_intensity = 0.1
-shader_parameter/tape_crease_smear = 0.0
+shader_parameter/tape_crease_smear = 0.2
 shader_parameter/tape_crease_intensity = 0.0
-shader_parameter/tape_crease_jitter = 0.0
-shader_parameter/tape_crease_speed = -2.0
-shader_parameter/tape_crease_discoloration = 0.0
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 1.0
 shader_parameter/bottom_border_thickness = 6.0
 shader_parameter/bottom_border_jitter = 6.0
-shader_parameter/noise_intensity = 0.5
+shader_parameter/noise_intensity = 0.2
+shader_parameter/noise_texture = ExtResource("72_icoe8")
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_qgbxk")
@@ -533,50 +537,74 @@ current = true
 stream = ExtResource("37_voqax")
 script = ExtResource("38_w06ng")
 
+[node name="buzz" type="AudioStreamPlayer3D" parent="introSound"]
+stream = ExtResource("61_hbgdd")
+autoplay = true
+
 [node name="babyrun" parent="." instance=ExtResource("48_ktpui")]
-transform = Transform3D(-6.0074, -1.91079, -9.01443, -0.187163, 10.784, -2.16115, 9.21278, -1.02689, -5.92195, 2.7013, -3.1686, 1.07773)
+transform = Transform3D(-6.0074, -1.91079, -9.01443, -0.187163, 10.784, -2.16115, 9.21278, -1.02689, -5.92195, 2.66611, -3.1686, 1.07773)
 visible = false
 
 [node name="FBHead" parent="babyrun/Armature/Object_7" index="0"]
 transform = Transform3D(0.0738734, 0.0378829, -0.00615223, -0.00169988, 0.0210519, 0.0977356, 0.0306563, -0.0901203, 0.0202447, 0.133991, 0.119827, -0.723243)
 
 [node name="Skeleton3D" parent="babyrun/Armature" index="1"]
-bones/1/rotation = Quaternion(-0.116839, 5.83815e-08, -6.86827e-09, 0.993151)
-bones/4/rotation = Quaternion(0.116839, -5.46344e-08, 6.42745e-09, 0.993151)
-bones/7/rotation = Quaternion(0.581137, 0.229707, -0.45806, 0.632214)
+transform = Transform3D(0.996146, 0.00913098, 0.087231, -0.0207708, 0.990833, 0.133487, -0.0852125, -0.134784, 0.987207, -0.0390547, -0.393215, -0.202923)
+bones/0/position = Vector3(0.00995071, 0.331871, -0.294375)
+bones/0/rotation = Quaternion(-0.762547, 0.140604, 0.0612722, 0.628489)
+bones/1/rotation = Quaternion(0.394529, 0.0179639, -0.149341, 0.906489)
+bones/2/rotation = Quaternion(0.00873283, 0.00812612, 0.010446, 0.999874)
+bones/3/rotation = Quaternion(0.00846648, 0.00910879, 0.0100456, 0.999872)
+bones/4/rotation = Quaternion(0.120832, -0.0048224, -0.0690717, 0.990255)
+bones/5/rotation = Quaternion(-0.465388, -0.0939607, 0.0578562, 0.878202)
+bones/7/rotation = Quaternion(0.573648, 0.262186, -0.41306, 0.656938)
 bones/7/scale = Vector3(1, 1, 1)
-bones/8/rotation = Quaternion(0.365151, 0.11464, -0.0453654, 0.922748)
+bones/8/rotation = Quaternion(0.188823, -0.0900257, 0.1546, 0.965578)
 bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.0477043, 0.156503, 0.287641, 0.94366)
+bones/9/rotation = Quaternion(-0.0292468, 0.160005, 0.0562394, 0.985079)
 bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(0.0260429, -0.533857, 0.121232, 0.836433)
 bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(0.211997, 0.743219, -0.27567, 0.571567)
-bones/15/rotation = Quaternion(-0.416108, 0.716856, -0.5009, -0.249139)
+bones/11/rotation = Quaternion(-0.11259, 0.776563, -0.166178, 0.597208)
+bones/12/rotation = Quaternion(-0.0680048, -0.0036091, 0.165181, 0.983909)
+bones/13/rotation = Quaternion(-0.0390765, 0.000125786, 0.159243, 0.986466)
+bones/15/rotation = Quaternion(-0.328205, 0.760468, -0.501588, -0.249758)
 bones/15/scale = Vector3(1, 1, 1)
-bones/16/rotation = Quaternion(0.431914, 0.171736, -0.0841557, 0.881405)
+bones/16/rotation = Quaternion(0.686995, 0.444544, -0.0522262, 0.572443)
 bones/16/scale = Vector3(1, 1, 1)
-bones/18/rotation = Quaternion(-0.166969, 0.771007, -0.571828, -0.225128)
-bones/19/rotation = Quaternion(0.207323, 0.694466, -0.652752, 0.220565)
-bones/23/rotation = Quaternion(0.00944468, 0.0628217, 0.986888, -0.148376)
+bones/17/rotation = Quaternion(0.0178471, -0.422937, -0.119712, 0.89804)
+bones/18/rotation = Quaternion(0.055011, 0.809467, 0.204606, -0.547607)
+bones/19/rotation = Quaternion(-0.0183498, 0.929647, 0.219631, 0.295265)
+bones/20/rotation = Quaternion(0.190933, 0.0114788, -0.0806869, 0.978214)
+bones/21/rotation = Quaternion(0.0859821, 0.0352084, -0.0937933, 0.991247)
+bones/23/rotation = Quaternion(0.107498, 0.102466, 0.984422, -0.0941227)
 bones/23/scale = Vector3(1, 1, 1)
-bones/24/rotation = Quaternion(0.070534, -0.00404339, -0.0570756, 0.995867)
+bones/24/rotation = Quaternion(-0.7128, 0.178919, -0.229564, 0.638126)
 bones/24/scale = Vector3(1, 1, 1)
-bones/25/rotation = Quaternion(0.272888, 0.102258, -0.0291846, 0.95615)
-bones/28/rotation = Quaternion(0.000191434, -0.00126349, 0.988715, 0.149806)
+bones/25/rotation = Quaternion(0.807331, 0.111597, 0.234264, 0.529984)
+bones/26/rotation = Quaternion(0.0680457, -5.93254e-06, 0.0101626, 0.997631)
+bones/28/rotation = Quaternion(-0.0758447, 0.422752, 0.850457, 0.303731)
 bones/28/scale = Vector3(1, 1, 1)
-bones/29/rotation = Quaternion(0.045094, 0.00253072, 0.0559968, 0.997409)
+bones/29/rotation = Quaternion(-0.968327, -0.0304947, -0.0239245, 0.246659)
 bones/29/scale = Vector3(1, 1, 1)
-bones/30/rotation = Quaternion(0.437057, -0.0453042, 0.022049, 0.898022)
-bones/31/rotation = Quaternion(0.0471854, -9.26013e-05, -0.00195899, 0.998884)
+bones/30/rotation = Quaternion(0.847786, -0.0395379, -0.0631878, 0.525074)
+bones/31/rotation = Quaternion(-0.160386, 0.0417421, 0.0996721, 0.981121)
 
 [node name="jumpscareSound" type="AudioStreamPlayer3D" parent="babyrun"]
 stream = ExtResource("48_2nx1t")
 volume_db = 80.0
-unit_size = 97.41
+unit_size = 100.0
+max_db = 6.0
 
 [node name="runningSound" type="AudioStreamPlayer3D" parent="babyrun"]
 stream = ExtResource("50_o6kod")
 volume_db = 74.667
+
+[node name="loud" type="AudioStreamPlayer3D" parent="babyrun"]
+stream = ExtResource("64_lxfo4")
+volume_db = 80.0
+unit_size = 100.0
+max_db = 6.0
 
 [node name="static" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(-0.441506, -0.12022, -0.889168, 0, 0.990983, -0.133986, 0.897259, -0.0591556, -0.437525, 6.93039, 0.203052, 1.79254)

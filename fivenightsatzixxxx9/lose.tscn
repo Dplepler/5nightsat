@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://b55u3q88f8sry"]
+
+[ext_resource type="Texture2D" uid="uid://oopradh2vulc" path="res://assets/menu/lose.png" id="1_v0own"]
+[ext_resource type="Script" path="res://lose.gd" id="1_xllba"]
+[ext_resource type="Shader" path="res://vhs.gdshader" id="3_x1hpd"]
+[ext_resource type="AudioStream" uid="uid://d1y1n1267gvlr" path="res://assets/sounds/buzz.wav" id="4_h38dp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffjfn"]
+shader = ExtResource("3_x1hpd")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.1
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 1.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.1
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xllba")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_v0own")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ffjfn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.04, 1.04)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 167.0
+offset_right = 284.0
+offset_bottom = 190.0
+scale = Vector2(3.30528, 4.45016)
+text = "יונתהן ביטח אותך"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_h38dp")
+volume_db = 24.0
+autoplay = true

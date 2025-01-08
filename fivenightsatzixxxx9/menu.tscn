@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://brge23w3yvcm5"]
+
+[ext_resource type="VideoStream" path="res://assets/menu/realmenu.ogv" id="1_jlr64"]
+[ext_resource type="Script" path="res://newgame.gd" id="2_hw8bb"]
+[ext_resource type="Texture2D" uid="uid://2w2d1ljiw3yf" path="res://assets/menu/loading.png" id="3_i86re"]
+[ext_resource type="Shader" path="res://vhs.gdshader" id="4_aiyeh"]
+[ext_resource type="Script" path="res://quit.gd" id="5_5658u"]
+[ext_resource type="AudioStream" uid="uid://b86ph88os8yu" path="res://assets/sounds/menutheme.mp3" id="5_a2730"]
+[ext_resource type="Texture2D" uid="uid://q86uf64sl3gt" path="res://assets/noise.png" id="5_xwecx"]
+[ext_resource type="Script" path="res://tutorial_button.gd" id="8_u43kb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdife"]
+shader = ExtResource("4_aiyeh")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 2.0
+shader_parameter/crease_opacity = 1.0
+shader_parameter/filter_intensity = 0.1
+shader_parameter/tape_crease_smear = 2.0
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 1.0
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 2.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.1
+shader_parameter/noise_texture = ExtResource("5_xwecx")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.978213, 1.04955)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 63.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_jlr64")
+autoplay = true
+expand = true
+loop = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fdife")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="newgame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 68.4922
+offset_top = 462.103
+offset_right = 158.492
+offset_bottom = 493.103
+scale = Vector2(2.26762, 2.14335)
+text = "New game"
+flat = true
+script = ExtResource("2_hw8bb")
+
+[node name="quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 67.47
+offset_top = 520.223
+offset_right = 157.47
+offset_bottom = 551.223
+scale = Vector2(2.26762, 2.14335)
+text = "Quit"
+flat = true
+alignment = 0
+script = ExtResource("5_5658u")
+
+[node name="tutorial" type="Button" parent="."]
+layout_mode = 0
+offset_left = 65.4254
+offset_top = 647.897
+offset_right = 183.425
+offset_bottom = 699.897
+scale = Vector2(2.71742, 2.41013)
+text = "Tutorial"
+flat = true
+alignment = 0
+script = ExtResource("8_u43kb")
+
+[node name="loading" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -199.343
+offset_top = -123.863
+offset_right = 336.657
+offset_bottom = 132.137
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_i86re")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_a2730")
+autoplay = true
+
+[connection signal="button_down" from="newgame" to="newgame" method="_on_button_down"]
+[connection signal="pressed" from="newgame" to="newgame" method="_on_pressed"]
+[connection signal="pressed" from="quit" to="quit" method="_on_pressed"]
+[connection signal="pressed" from="tutorial" to="tutorial" method="_on_pressed"]

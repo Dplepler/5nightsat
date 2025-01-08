@@ -24,12 +24,16 @@ signal shake(strength: float)
 @onready var chiburashka_scare_sound = $wardrobe/chiburashka/jumpscare_sound
 @onready var chiburashka_laugh_sound = $wardrobe/chiburashka/laugh
 @onready var enemy_scare_sound = $crawly/enemy/scareSound
+@onready var loud_sound = $babyrun/loud
 @onready var button = $CanvasLayer/Button
 @onready var monitor_scares = $desk/pc/monitor1/scares
 @onready var momo = $momo
 @onready var momo_laugh = $desk/pc/monitor1/laugh
 @onready var momo_scream = $momo/scream
+
 @onready var player = $player/CharacterBody3D
+
+@onready var introSound = $introSound/AudioStreamPlayer
 
 var promise = preload("res://promise_utils.gd")
 
@@ -53,11 +57,12 @@ func _ready() -> void:
 	# intro
 	await get_tree().create_timer(2).timeout
 	button.visible = true
-	await Promise.any([promise._create_promise(get_tree().create_timer(62).timeout), promise._create_promise(button.pressed)]).wait()
+	await introSound.finished
 	button.visible = false
-
-	scheduler()
 	
+	# Begin actual game
+	scheduler()
+
 func scheduler() -> void:
 	var level_chance = 20
 	var time_elapsed = 0
@@ -76,7 +81,7 @@ func scheduler() -> void:
 			win()
 	
 func win() -> void:
-	get_tree().quit()
+	get_tree().change_scene_to_packed(load("res://win.tscn"))
 
 func level_monitor() -> void:
 	if monitor_inprogress:
@@ -125,26 +130,19 @@ func level_baby() -> void:
 func level_baby_lose() -> void:
 	babyrun.visible = false
 	shutdown()
-	
-	await get_tree().create_timer(randf_range(1, 20)).timeout
-	
-	babyrun.position = Vector3(14, 0.481, -2.553)
-	babyrun.rotation_degrees = Vector3(0.3, -70, 0.2)
-	
+	await get_tree().create_timer(randf_range(5, 10)).timeout
 	babyrun_sound.play()
-	babyrun_head.visible = false
-	babyrun_animation.play("running")
-	babyrun.visible = true
 	
-	await get_tree().create_timer(1.4).timeout
+	await get_tree().create_timer(randf_range(1, 10)).timeout
 	
 	babyjump_sound.play()
 	babyrun_sound.stop()
-
-	babyrun.position = Vector3(5.892, -1.5, -2.302)
-	babyrun.rotation_degrees = Vector3(-2, -91.4, 1.3)
-	babyrun_head.visible = true
 	
+	babyrun.position = Vector3(1.83, -3.1, 0.3)
+	babyrun.rotation_degrees = Vector3(11.3, -123, -1)
+	babyrun.visible = true
+	turn_egg()
+	loud_sound.play()
 	emit_signal("shake", DEFAULT_SHAKE)
 	await get_tree().create_timer(JUMPSCARE_DURATION).timeout
 	emit_signal("shake", DEFAULT_SHAKE)
@@ -265,7 +263,7 @@ func _on_character_body_3d_baby_sig() -> void:
 		emit_signal("baby_die")
 
 func jumpscare():
-	get_tree().quit()
+	get_tree().change_scene_to_packed(load("res://lose.tscn"))
 
 func _on_weapon_kill_crawly() -> void:
 	enemy_killed = true
