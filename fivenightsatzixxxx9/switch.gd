@@ -68,6 +68,7 @@ func scheduler() -> void:
 	var time_elapsed = 0
 	var laps = 0
 	var levels = [level_baby, level_chiburashka, level_crawly, level_monitor]
+	
 	while game:
 		await get_tree().create_timer(1).timeout
 		time_elapsed += 1

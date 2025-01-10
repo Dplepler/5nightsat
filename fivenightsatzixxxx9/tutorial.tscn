@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://clbuvc0v28yri"]
+[gd_scene load_steps=3 format=3 uid="uid://clbuvc0v28yri"]
 
 [ext_resource type="Script" path="res://tutorial.gd" id="1_myjnb"]
+[ext_resource type="VideoStream" path="res://assets/tutorial.ogv" id="2_qdpuw"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -18,6 +19,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.00519, 1)
+stream = ExtResource("2_qdpuw")
+volume_db = 15.0
+autoplay = true
+expand = true
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1

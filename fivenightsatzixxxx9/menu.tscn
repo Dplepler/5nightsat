@@ -35,6 +35,12 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.978213, 1.04955)
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(568.383, 275.356)
+stream = ExtResource("5_a2730")
+volume_db = 10.0
+autoplay = true
+
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -57,40 +63,54 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 41.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 104.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="newgame" type="Button" parent="."]
-layout_mode = 0
-offset_left = 68.4922
-offset_top = 462.103
-offset_right = 158.492
-offset_bottom = 493.103
-scale = Vector2(2.26762, 2.14335)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.04455
+offset_top = -447.914
+offset_right = 92.0443
+offset_bottom = -416.914
+grow_vertical = 0
+scale = Vector2(3.53524, 3.40103)
 text = "New game"
 flat = true
 script = ExtResource("2_hw8bb")
 
 [node name="quit" type="Button" parent="."]
-layout_mode = 0
-offset_left = 67.47
-offset_top = 520.223
-offset_right = 157.47
-offset_bottom = 551.223
-scale = Vector2(2.26762, 2.14335)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.02227
+offset_top = -338.344
+offset_right = 91.0223
+offset_bottom = -307.344
+grow_vertical = 0
+scale = Vector2(3.41257, 2.90558)
 text = "Quit"
 flat = true
 alignment = 0
 script = ExtResource("5_5658u")
 
 [node name="tutorial" type="Button" parent="."]
-layout_mode = 0
-offset_left = 65.4254
-offset_top = 647.897
-offset_right = 183.425
-offset_bottom = 699.897
-scale = Vector2(2.71742, 2.41013)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -237.348
+offset_right = 118.0
+offset_bottom = -185.348
+grow_vertical = 0
+scale = Vector2(3.57613, 3.21047)
 text = "Tutorial"
 flat = true
 alignment = 0
@@ -109,10 +129,6 @@ offset_bottom = 132.137
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_i86re")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_a2730")
-autoplay = true
 
 [connection signal="button_down" from="newgame" to="newgame" method="_on_button_down"]
 [connection signal="pressed" from="newgame" to="newgame" method="_on_pressed"]

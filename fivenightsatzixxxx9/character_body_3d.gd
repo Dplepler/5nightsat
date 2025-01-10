@@ -32,11 +32,13 @@ func _unhandled_input(event: InputEvent) -> void:
 					emit_signal("chib_sig")
 				"scares":
 					emit_signal("scares_sig")
+				"cupcake":
+					get_node("/root/main/shelf/cupcake/AudioStreamPlayer3D").play()
+				
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_released("ui_accept"):
 			emit_signal("baby_sig")
 		
-	
 func get_selection():
 	var worldspace = get_world_3d().direct_space_state
 	var mouse = get_viewport().get_mouse_position()
